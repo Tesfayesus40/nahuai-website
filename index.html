@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nahu AI — Where Curiosity Meets Craft</title>
+  <meta name="description" content="Ethiopia's first Amharic AI agency. We build intelligent chatbots and AI tools for Ethiopian banks, universities, telecoms, and exporters." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────── */
+    :root {
+      --green:   #2ECC8E;
+      --purple:  #6C5CE7;
+      --coral:   #E05C5C;
+      --dark:    #0D0D14;
+      --dark2:   #13131F;
+      --dark3:   #1A1A2E;
+      --text:    #F0EFF8;
+      --muted:   #8B89A8;
+      --border:  rgba(108,92,231,0.18);
+      --font-en: 'Space Grotesk', 'Inter', sans-serif;
+      --font-am: 'Noto Sans Ethiopic', sans-serif;
+      --radius:  12px;
+    }
+
+    /* ── RESET ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: var(--font-en);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ── LANGUAGE TOGGLE ────────────────────────── */
+    .lang-am { display: none; }
+    body.am .lang-en { display: none; }
+    body.am .lang-am { display: block; }
+    body.am .lang-am-inline { display: inline; }
+    body.am .lang-en-inline { display: none; }
+    .lang-am-inline { display: none; }
+    .lang-en-inline { display: inline; }
+    body.am { font-family: var(--font-am); }
+    body.am p, body.am li, body.am span, body.am h1, body.am h2, body.am h3 {
+      font-family: var(--font-am);
+      line-height: 1.9;
+    }
+
+    /* ── NAV ────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 40px;
+      background: rgba(13,13,20,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    .logo-mark {
+      width: 40px; height: 40px; position: relative; flex-shrink: 0;
+    }
+
+    .nav-wordmark {
+      font-size: 20px; font-weight: 600; letter-spacing: -0.5px;
+      color: var(--text);
+    }
+    .nav-wordmark span { color: var(--green); }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-right {
+      display: flex; align-items: center; gap: 16px;
+    }
+
+    /* Language toggle button */
+    .lang-toggle {
+      display: flex; align-items: center; gap: 0;
+      background: var(--dark3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .lang-btn {
+      padding: 7px 14px;
+      font-size: 13px; font-weight: 500;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-en);
+    }
+    .lang-btn.active {
+      background: var(--purple);
+      color: #fff;
+    }
+
+    .nav-cta {
+      padding: 9px 20px;
+      background: var(--green);
+      color: var(--dark);
+      border-radius: 8px;
+      font-size: 14px; font-weight: 600;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+
+    /* ── HERO ────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Ambient background glow */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(108,92,231,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -150px; right: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(46,204,142,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+      position: relative; z-index: 1;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px;
+      background: rgba(46,204,142,0.1);
+      border: 1px solid rgba(46,204,142,0.25);
+      border-radius: 100px;
+      font-size: 12px; font-weight: 500; color: var(--green);
+      letter-spacing: 0.5px;
+      margin-bottom: 24px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 5vw, 58px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 24px;
+    }
+    body.am .hero h1 {
+      font-size: clamp(32px, 4vw, 48px);
+      letter-spacing: 0;
+      line-height: 1.5;
+    }
+
+    .hero h1 .accent-green { color: var(--green); }
+    .hero h1 .accent-purple { color: var(--purple); }
+
+    .hero-sub {
+      font-size: 17px; color: var(--muted);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 40px;
+    }
+
+    .hero-actions {
+      display: flex; gap: 14px; flex-wrap: wrap;
+    }
+    .btn-primary {
+      padding: 14px 28px;
+      background: var(--green);
+      color: var(--dark);
+      border-radius: var(--radius);
+      font-size: 15px; font-weight: 600;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+
+    .btn-secondary {
+      padding: 14px 28px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: var(--radius);
+      font-size: 15px; font-weight: 500;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-secondary:hover {
+      border-color: var(--purple);
+      background: rgba(108,92,231,0.08);
+    }
+
+    /* Hero visual — animated orbital logo */
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+    }
+
+    .orbital-container {
+      position: relative;
+      width: 320px; height: 320px;
+    }
+
+    .orbital-container svg {
+      width: 100%; height: 100%;
+      filter: drop-shadow(0 0 40px rgba(108,92,231,0.3));
+    }
+
+    /* Floating stats around the orbital */
+    .stat-badge {
+      position: absolute;
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 12px;
+    }
+    .stat-badge strong {
+      display: block;
+      font-size: 20px; font-weight: 700;
+      color: var(--green);
+    }
+    .stat-badge span { color: var(--muted); font-size: 11px; }
+    .stat-badge:nth-child(2) { top: 20px; right: -20px; }
+    .stat-badge:nth-child(3) { bottom: 40px; left: -30px; }
+    .stat-badge:nth-child(4) { top: 50%; right: -40px; transform: translateY(-50%); }
+    .stat-badge:nth-child(4) strong { color: var(--purple); }
+
+    /* ── SECTION SHARED ─────────────────────────── */
+    section { padding: 100px 40px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    body.am .section-title {
+      letter-spacing: 0; line-height: 1.6;
+    }
+
+    .section-sub {
+      font-size: 16px; color: var(--muted);
+      max-width: 560px; line-height: 1.7;
+      margin-bottom: 60px;
+    }
+
+    /* ── PROOF BAR ───────────────────────────────── */
+    .proof-bar {
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 40px;
+    }
+    .proof-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center;
+      gap: 40px; flex-wrap: wrap;
+    }
+    .proof-label {
+      font-size: 12px; color: var(--muted);
+      font-weight: 500; letter-spacing: 1px;
+      text-transform: uppercase; white-space: nowrap;
+    }
+    .proof-divider {
+      width: 1px; height: 24px;
+      background: var(--border); flex-shrink: 0;
+    }
+    .proof-items {
+      display: flex; gap: 32px; flex-wrap: wrap;
+    }
+    .proof-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--muted);
+    }
+    .proof-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--green); flex-shrink: 0;
+    }
+    .proof-dot.purple { background: var(--purple); }
+    .proof-dot.coral  { background: var(--coral); }
+
+    /* ── SERVICES ────────────────────────────────── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .service-card:hover {
+      border-color: rgba(108,92,231,0.4);
+      transform: translateY(-4px);
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .service-card.card-green::before { background: var(--green); }
+    .service-card.card-purple::before { background: var(--purple); }
+    .service-card.card-coral::before { background: var(--coral); }
+
+    .service-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    .icon-green  { background: rgba(46,204,142,0.12); }
+    .icon-purple { background: rgba(108,92,231,0.12); }
+    .icon-coral  { background: rgba(224,92,92,0.12); }
+
+    .service-card h3 {
+      font-size: 20px; font-weight: 600;
+      margin-bottom: 12px; letter-spacing: -0.3px;
+    }
+    .service-card p {
+      font-size: 14px; color: var(--muted);
+      line-height: 1.7; margin-bottom: 24px;
+    }
+
+    .service-features {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .service-features li {
+      font-size: 13px; color: var(--muted);
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .service-features li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700; flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── PRICING ─────────────────────────────────── */
+    .pricing-section { background: var(--dark2); }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .price-card {
+      background: var(--dark);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      transition: border-color 0.3s;
+    }
+    .price-card.featured {
+      border-color: var(--purple);
+      position: relative;
+    }
+    .price-card.featured::after {
+      content: 'Most Popular';
+      position: absolute;
+      top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--purple);
+      color: #fff;
+      font-size: 11px; font-weight: 600;
+      padding: 4px 14px;
+      border-radius: 100px;
+      letter-spacing: 0.5px;
+    }
+    body.am .price-card.featured::after {
+      content: 'በጣም ተፈላጊ';
+    }
+
+    .price-tier {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .price-amount {
+      font-size: 38px; font-weight: 700;
+      letter-spacing: -1px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .price-amount span {
+      font-size: 16px; font-weight: 400;
+      color: var(--muted); letter-spacing: 0;
+    }
+    .price-duration {
+      font-size: 13px; color: var(--muted);
+      margin-bottom: 28px;
+    }
+    .price-features {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 10px;
+      margin-bottom: 32px;
+    }
+    .price-features li {
+      font-size: 14px; color: var(--muted);
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .price-features li::before {
+      content: '→';
+      color: var(--green);
+      font-weight: 600; flex-shrink: 0;
+    }
+
+    .price-cta {
+      display: block; width: 100%;
+      padding: 13px;
+      text-align: center;
+      border-radius: var(--radius);
+      font-size: 14px; font-weight: 600;
+      transition: all 0.2s;
+    }
+    .price-cta-outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .price-cta-outline:hover {
+      border-color: var(--purple);
+      background: rgba(108,92,231,0.08);
+    }
+    .price-cta-filled {
+      background: var(--purple);
+      color: #fff;
+    }
+    .price-cta-filled:hover { opacity: 0.88; }
+
+    /* ── HOW IT WORKS ────────────────────────────── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px;
+      counter-reset: steps;
+    }
+    .step {
+      counter-increment: steps;
+      position: relative;
+    }
+    .step-num {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(108,92,231,0.15);
+      border: 1px solid rgba(108,92,231,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; color: var(--purple);
+      margin-bottom: 20px;
+    }
+    .step h4 {
+      font-size: 17px; font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .step p {
+      font-size: 14px; color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── PROOF / DEMO ────────────────────────────── */
+    .demo-section {
+      background: linear-gradient(135deg, var(--dark2) 0%, var(--dark3) 100%);
+    }
+
+    .demo-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+
+    .telegram-mockup {
+      background: #17212B;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .tg-header {
+      background: #232E3C;
+      padding: 16px 20px;
+      display: flex; align-items: center; gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .tg-avatar {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple), var(--green));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; color: #fff; flex-shrink: 0;
+    }
+    .tg-name { font-size: 14px; font-weight: 600; }
+    .tg-status { font-size: 12px; color: var(--green); }
+
+    .tg-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+
+    .tg-msg {
+      max-width: 85%;
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: 13px; line-height: 1.6;
+      font-family: var(--font-am);
+    }
+    .tg-msg.user {
+      background: #2B5278;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .tg-msg.bot {
+      background: #182533;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .tg-msg.bot .bot-meta {
+      display: flex; align-items: center; gap: 6px;
+      margin-bottom: 8px;
+      font-size: 11px; color: var(--green);
+      font-family: var(--font-en);
+    }
+    .tg-msg.thinking {
+      background: #182533;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.05);
+      color: var(--muted); font-style: italic;
+      font-family: var(--font-am);
+      font-size: 12px;
+    }
+
+    /* ── PRODUCTS ────────────────────────────────── */
+    .products-section { background: var(--dark3); }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+      gap: 32px;
+    }
+
+    .product-card {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(108,92,231,0.35);
+    }
+
+    .product-header {
+      padding: 36px 36px 28px;
+      display: flex; align-items: flex-start; gap: 20px;
+    }
+
+    .product-icon {
+      width: 64px; height: 64px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; flex-shrink: 0;
+    }
+    .product-icon.sport  { background: linear-gradient(135deg, rgba(224,92,92,0.2), rgba(224,92,92,0.05)); border: 1px solid rgba(224,92,92,0.2); }
+    .product-icon.coffee { background: linear-gradient(135deg, rgba(46,204,142,0.2), rgba(46,204,142,0.05)); border: 1px solid rgba(46,204,142,0.2); }
+
+    .product-meta { flex: 1; }
+    .product-name-am {
+      font-family: var(--font-am);
+      font-size: 13px; color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .product-name-en {
+      font-size: 22px; font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .product-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 11px; font-weight: 600;
+    }
+    .badge-live {
+      background: rgba(46,204,142,0.12);
+      border: 1px solid rgba(46,204,142,0.25);
+      color: var(--green);
+    }
+    .badge-soon {
+      background: rgba(108,92,231,0.12);
+      border: 1px solid rgba(108,92,231,0.25);
+      color: var(--purple);
+    }
+
+    .product-body { padding: 0 36px 36px; }
+    .product-body p {
+      font-size: 14px; color: var(--muted);
+      line-height: 1.75; margin-bottom: 24px;
+    }
+
+    .product-features {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px; margin-bottom: 28px;
+    }
+    .product-feature {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--muted);
+    }
+    .product-feature::before {
+      content: ''; width: 6px; height: 6px;
+      border-radius: 50%; flex-shrink: 0;
+    }
+    .feature-coral::before { background: var(--coral); }
+    .feature-green::before { background: var(--green); }
+
+    .product-footer {
+      padding: 20px 36px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .product-platform {
+      font-size: 12px; color: var(--muted);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .product-link {
+      font-size: 13px; font-weight: 600;
+      color: var(--green);
+      display: flex; align-items: center; gap: 4px;
+      transition: gap 0.2s;
+    }
+    .product-link:hover { gap: 8px; }
+
+    /* ── CONTACT ─────────────────────────────────── */
+    .contact-section { background: var(--dark); }
+    .contact-inner {
+      max-width: 700px; margin: 0 auto;
+      text-align: center;
+    }
+    .contact-inner .section-title { text-align: center; }
+    .contact-inner .section-sub {
+      max-width: 100%; text-align: center; margin: 0 auto 48px;
+    }
+
+    .contact-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px; margin-bottom: 48px;
+    }
+    .contact-option {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+    .contact-option:hover {
+      border-color: var(--green);
+      transform: translateY(-3px);
+    }
+    .contact-option .icon { font-size: 28px; margin-bottom: 10px; }
+    .contact-option .label { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+    .contact-option .val { font-size: 12px; color: var(--muted); }
+
+    /* ── FOOTER ──────────────────────────────────── */
+    footer {
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+      padding: 60px 40px 32px;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px; margin-bottom: 48px;
+    }
+    .footer-brand p {
+      font-size: 14px; color: var(--muted);
+      line-height: 1.7; margin-top: 16px;
+      max-width: 280px;
+    }
+    .footer-col h5 {
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col li a {
+      font-size: 14px; color: var(--muted);
+      transition: color 0.2s;
+    }
+    .footer-col li a:hover { color: var(--text); }
+    .footer-bottom {
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom p { font-size: 13px; color: var(--muted); }
+    .footer-tagline {
+      font-size: 13px; color: var(--muted);
+      font-style: italic;
+    }
+    .footer-tagline span { color: var(--green); }
+
+    /* ── RESPONSIVE ──────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      section { padding: 70px 20px; }
+      .hero { padding: 100px 20px 60px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-visual { display: none; }
+      .demo-inner { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .proof-bar { padding: 20px; }
+      .proof-inner { gap: 16px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── NAV ──────────────────────────────────────── -->
+  <nav>
+    <div class="nav-logo">
+      <!-- Inline SVG logo mark -->
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="20" cy="20" rx="15" ry="6" stroke="#6C5CE7" stroke-width="1.8" transform="rotate(-35 20 20)" opacity="0.9"/>
+        <ellipse cx="20" cy="20" rx="15" ry="6" stroke="#2ECC8E" stroke-width="1.8" transform="rotate(35 20 20)" opacity="0.9"/>
+        <ellipse cx="20" cy="20" rx="15" ry="4" stroke="#E05C5C" stroke-width="1.2" opacity="0.7"/>
+        <circle cx="20" cy="20" r="4.5" fill="#6C5CE7" opacity="0.95"/>
+        <circle cx="20" cy="20" r="2.5" fill="#AFA9EC"/>
+        <text x="14.5" y="23.5" font-size="6" fill="white" font-family="'Noto Sans Ethiopic',sans-serif" opacity="0.9">ና</text>
+      </svg>
+      <span class="nav-wordmark">nahu<span>.</span>ai</span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#services">
+        <span class="lang-en-inline">Services</span>
+        <span class="lang-am-inline">አገልግሎቶች</span>
+      </a></li>
+      <li><a href="#pricing">
+        <span class="lang-en-inline">Pricing</span>
+        <span class="lang-am-inline">ዋጋ</span>
+      </a></li>
+      <li><a href="#how">
+        <span class="lang-en-inline">How it works</span>
+        <span class="lang-am-inline">እንዴት ይሰራል</span>
+      </a></li>
+      <li><a href="#products">
+        <span class="lang-en-inline">Products</span>
+        <span class="lang-am-inline">ምርቶች</span>
+      </a></li>
+      <li><a href="#contact">
+        <span class="lang-en-inline">Contact</span>
+        <span class="lang-am-inline">አግኙን</span>
+      </a></li>
+    </ul>
+
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" id="btn-am" onclick="setLang('am')">አማ</button>
+      </div>
+      <a href="#contact" class="nav-cta">
+        <span class="lang-en-inline">Get a demo</span>
+        <span class="lang-am-inline">ዴሞ ይጠይቁ</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ──────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="lang-en">Ethiopia's First Amharic AI Agency</span>
+          <span class="lang-am">የኢትዮጵያ የመጀመሪያ የአማርኛ AI ኩባንያ</span>
+        </div>
+
+        <h1>
+          <span class="lang-en">
+            AI that speaks<br/>
+            <span class="accent-green">Amharic</span> —<br/>
+            built for <span class="accent-purple">Ethiopia</span>
+          </span>
+          <span class="lang-am">
+            <span class="accent-green">አማርኛ</span> የሚናገር<br/>
+            AI — ለ<span class="accent-purple">ኢትዮጵያ</span><br/>
+            የተሰራ
+          </span>
+        </h1>
+
+        <p class="hero-sub">
+          <span class="lang-en">We build Amharic AI chatbots for Ethiopian banks, universities, telecoms, and exporters. Your customers ask questions in Amharic — we make sure they get answers instantly.</span>
+          <span class="lang-am">ለኢትዮጵያ ባንኮች፣ ዩኒቨርሲቲዎች፣ ቴሌኮሞች እና ላኪዎች የአማርኛ AI ቻትቦቶችን እንሰራለን። ደንበኞቻቸው በአማርኛ ሲጠይቁ — መልሱን ወዲያውኑ ያገኛሉ።</span>
+        </p>
+
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">
+            <span class="lang-en-inline">See a live demo</span>
+            <span class="lang-am-inline">ቀጥታ ዴሞ ይመልከቱ</span>
+          </a>
+          <a href="#services" class="btn-secondary">
+            <span class="lang-en-inline">Our services</span>
+            <span class="lang-am-inline">አገልግሎቶቻችን</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Animated orbital mark -->
+      <div class="hero-visual">
+        <div class="orbital-container">
+          <svg viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <style>
+                .ring1 { animation: spin1 8s linear infinite; transform-origin: 160px 160px; }
+                .ring2 { animation: spin2 6s linear infinite; transform-origin: 160px 160px; }
+                .ring3 { animation: spin3 10s linear infinite; transform-origin: 160px 160px; }
+                @keyframes spin1 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+                @keyframes spin2 { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+                @keyframes spin3 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+              </style>
+            </defs>
+            <!-- Outer glow -->
+            <circle cx="160" cy="160" r="130" fill="rgba(108,92,231,0.04)" />
+            <circle cx="160" cy="160" r="100" fill="rgba(108,92,231,0.06)" />
+
+            <!-- Ring 1 -->
+            <g class="ring1">
+              <ellipse cx="160" cy="160" rx="120" ry="42" stroke="#6C5CE7" stroke-width="1.5" opacity="0.7" transform="rotate(-30 160 160)"/>
+              <circle cx="272" cy="110" r="6" fill="#6C5CE7"/>
+            </g>
+
+            <!-- Ring 2 -->
+            <g class="ring2">
+              <ellipse cx="160" cy="160" rx="120" ry="42" stroke="#2ECC8E" stroke-width="1.5" opacity="0.7" transform="rotate(30 160 160)"/>
+              <circle cx="48" cy="110" r="6" fill="#2ECC8E"/>
+            </g>
+
+            <!-- Ring 3 -->
+            <g class="ring3">
+              <ellipse cx="160" cy="160" rx="120" ry="28" stroke="#E05C5C" stroke-width="1" opacity="0.5"/>
+              <circle cx="280" cy="160" r="5" fill="#E05C5C"/>
+            </g>
+
+            <!-- Nucleus -->
+            <circle cx="160" cy="160" r="28" fill="rgba(108,92,231,0.2)" />
+            <circle cx="160" cy="160" r="18" fill="#6C5CE7" opacity="0.9"/>
+            <text x="151" y="167" font-size="16" fill="white" font-family="'Noto Sans Ethiopic',sans-serif" font-weight="500">ና</text>
+          </svg>
+
+          <!-- Floating stats -->
+          <div class="stat-badge">
+            <strong>100%</strong>
+            <span class="lang-en-inline">Amharic native</span>
+            <span class="lang-am-inline">አማርኛ ተወላጅ</span>
+          </div>
+          <div class="stat-badge">
+            <strong>24/7</strong>
+            <span class="lang-en-inline">Always on</span>
+            <span class="lang-am-inline">ሁልጊዜ ይሰራል</span>
+          </div>
+          <div class="stat-badge">
+            <strong>2wk</strong>
+            <span class="lang-en-inline">Delivery</span>
+            <span class="lang-am-inline">አቅርቦት</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROOF BAR ───────────────────────────────── -->
+  <div class="proof-bar">
+    <div class="proof-inner">
+      <span class="proof-label lang-en">Proven technology</span>
+      <span class="proof-label lang-am">የተረጋገጠ ቴክኖሎጂ</span>
+      <div class="proof-divider"></div>
+      <div class="proof-items">
+        <div class="proof-item">
+          <div class="proof-dot"></div>
+          <span class="lang-en-inline">Nahu Buna Gebaya — Live Amharic AI app</span>
+          <span class="lang-am-inline">ናሁ ቡና ገበያ — የቀጥታ አማርኛ AI መተግበሪያ</span>
+        </div>
+        <div class="proof-item">
+          <div class="proof-dot purple"></div>
+          <span class="lang-en-inline">Shield of Lions — Full Amharic TTS pipeline</span>
+          <span class="lang-am-inline">ሺልድ ኦፍ ላዮንስ — የአማርኛ TTS ቧንቧ መስመር</span>
+        </div>
+        <div class="proof-item">
+          <div class="proof-dot coral"></div>
+          <span class="lang-en-inline">Powered by Claude AI — world's leading LLM</span>
+          <span class="lang-am-inline">በክሎድ AI ተጎልብቷል — የዓለም ቁንጮ LLM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SERVICES ─────────────────────────────────── -->
+  <section id="services">
+    <div class="section-inner">
+      <p class="section-label lang-en">What we build</p>
+      <p class="section-label lang-am">የምንሰራው</p>
+
+      <h2 class="section-title">
+        <span class="lang-en">Two services. One mission.</span>
+        <span class="lang-am">ሁለት አገልግሎቶች። አንድ ተልዕኮ።</span>
+      </h2>
+
+      <p class="section-sub">
+        <span class="lang-en">We make Ethiopian businesses smarter — through Amharic AI chatbots that serve customers and AI tools that find new ones.</span>
+        <span class="lang-am">የኢትዮጵያ ንግዶችን እናስቻለን — ደንበኞችን በሚያገለግሉ የአማርኛ AI ቻትቦቶች እና አዲስ ደንበኞችን በሚፈልጉ AI መሳሪያዎች።</span>
+      </p>
+
+      <div class="services-grid">
+        <!-- Service 1 -->
+        <div class="service-card card-green">
+          <div class="service-icon icon-green">🤖</div>
+          <h3 class="lang-en">Amharic AI Chatbot Builds</h3>
+          <h3 class="lang-am">የአማርኛ AI ቻትቦት ግንባታ</h3>
+          <p class="lang-en">Custom Amharic chatbots for your Telegram channel or website. Your students, customers, and clients get instant answers — day and night.</p>
+          <p class="lang-am">ለቴሌግራም ቻናልዎ ወይም ድረ-ገጽዎ ብጁ የአማርኛ ቻትቦቶች። ተማሪዎቻቸው፣ ደንበኞቻቸው — ወዲያውኑ መልሶችን ያገኛሉ — ቀንም ሌሊትም።</p>
+          <ul class="service-features">
+            <li class="lang-en">Amharic &amp; English bilingual</li>
+            <li class="lang-am">አማርኛ እና እንግሊዝኛ ሁለት ቋንቋ</li>
+            <li class="lang-en">Telegram or WhatsApp delivery</li>
+            <li class="lang-am">በቴሌግራም ወይም ዋትሳፕ</li>
+            <li class="lang-en">Custom knowledge base from your documents</li>
+            <li class="lang-am">ከሰነዶቻቸው ብጁ የዕውቀት መሰረት</li>
+            <li class="lang-en">Lead capture built in</li>
+            <li class="lang-am">የደንበኛ ሊድ ማሰባሰቢያ ተካቷል</li>
+            <li class="lang-en">Delivered in 2–4 weeks</li>
+            <li class="lang-am">በ2–4 ሳምንታት ይቀርባል</li>
+          </ul>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-card card-purple">
+          <div class="service-icon icon-purple">🌍</div>
+          <h3 class="lang-en">AI Lead Generation for Exporters</h3>
+          <h3 class="lang-am">ለላኪዎች AI ሊድ ማፍለቂያ</h3>
+          <p class="lang-en">Ethiopian coffee, sesame, leather, and flower exporters — we find verified international buyers and write personalized outreach emails for you every month.</p>
+          <p class="lang-am">የኢትዮጵያ ቡና፣ ሰሊጥ፣ ቆዳ እና አበባ ላኪዎች — በየወሩ የተረጋገጡ ዓለም አቀፍ ገዢዎችን እናገኝልዎታለን እና ግላዊ የውጭ ደብዳቤዎችን እንጽፍልዎታለን።</p>
+          <ul class="service-features">
+            <li class="lang-en">50–100 verified buyer contacts/month</li>
+            <li class="lang-am">50–100 የተረጋገጡ ገዢ እውቂያዎች/ወር</li>
+            <li class="lang-en">Verified emails &amp; LinkedIn profiles</li>
+            <li class="lang-am">የተረጋገጡ ኢሜይሎች እና LinkedIn</li>
+            <li class="lang-en">AI-personalized outreach emails</li>
+            <li class="lang-am">AI ግላዊ የውጭ ደብዳቤዎች</li>
+            <li class="lang-en">Monthly response tracking report</li>
+            <li class="lang-am">ወርሃዊ የምላሽ ክትትል ሪፖርት</li>
+          </ul>
+        </div>
+
+        <!-- Why Nahu AI -->
+        <div class="service-card card-coral">
+          <div class="service-icon icon-coral">🇪🇹</div>
+          <h3 class="lang-en">Why Nahu AI?</h3>
+          <h3 class="lang-am">ለምን ናሁ AI?</h3>
+          <p class="lang-en">We are Ethiopian. We built Amharic AI before anyone else. We understand your customers, your culture, and your market.</p>
+          <p class="lang-am">እኛ ኢትዮጵያውያን ነን። ከሌሎች ቀድመን የአማርኛ AI ሰርተናል። ደንበኞቻቸውን፣ ባህሎቻቸውን እና ገበያቸውን እናውቃለን።</p>
+          <ul class="service-features">
+            <li class="lang-en">Native Amharic understanding</li>
+            <li class="lang-am">ተወላጅ የአማርኛ ግንዛቤ</li>
+            <li class="lang-en">Ethiopian business culture expertise</li>
+            <li class="lang-am">የኢትዮጵያ ንግድ ባህል ልምድ</li>
+            <li class="lang-en">Remote delivery from Canada</li>
+            <li class="lang-am">ከካናዳ የርቀት አቅርቦት</li>
+            <li class="lang-en">Ongoing maintenance &amp; support</li>
+            <li class="lang-am">ቀጣይ ጥገና እና ድጋፍ</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DEMO / PROOF ─────────────────────────────── -->
+  <section class="demo-section" id="demo">
+    <div class="demo-inner section-inner">
+      <div>
+        <p class="section-label lang-en">See it in action</p>
+        <p class="section-label lang-am">ሲሰራ ይመልከቱ</p>
+
+        <h2 class="section-title">
+          <span class="lang-en">A real Amharic conversation — live on Telegram</span>
+          <span class="lang-am">እውነተኛ የአማርኛ ውይይት — በቴሌግራም ቀጥታ</span>
+        </h2>
+
+        <p class="section-sub">
+          <span class="lang-en">This is our university demo bot. It answers admissions questions in Amharic instantly. It runs 24/7 on Telegram with zero human involvement.</span>
+          <span class="lang-am">ይህ የዩኒቨርሲቲ ዴሞ ቦቱ ነው። ወዲያውኑ የምዝገባ ጥያቄዎችን በአማርኛ ይመልሳል። ያለምንም የሰው ልጅ ጣልቃ ገብነት ቀን ከሌሊት በቴሌግራም ይሰራል።</span>
+        </p>
+
+        <a href="#contact" class="btn-primary">
+          <span class="lang-en-inline">Request a live demo</span>
+          <span class="lang-am-inline">ቀጥታ ዴሞ ይጠይቁ</span>
+        </a>
+      </div>
+
+      <!-- Telegram mockup -->
+      <div class="telegram-mockup">
+        <div class="tg-header">
+          <div class="tg-avatar">N</div>
+          <div>
+            <div class="tg-name lang-en">Unity University AI Assistant</div>
+            <div class="tg-name lang-am">የዩኒቲ ዩኒቨርሲቲ AI አማካሪ</div>
+            <div class="tg-status lang-en">● Online — Powered by Nahu AI</div>
+            <div class="tg-status lang-am">● ሁልጊዜ ዝግጁ — ናሁ AI አጎልብቷል</div>
+          </div>
+        </div>
+        <div class="tg-body">
+          <div class="tg-msg user">ምዝገባ መቼ ይጀምራል?</div>
+          <div class="tg-msg thinking">
+            🔍 <span class="lang-en-inline">Looking that up...</span><span class="lang-am-inline">እየፈለግሁ ነው...</span>
+          </div>
+          <div class="tg-msg bot">
+            <div class="bot-meta">✦ Nahu AI</div>
+            📅 ምዝገባ <strong>በመስከረም 1</strong> ይጀምራል።<br/><br/>
+            የሚያስፈልጉ ሰነዶች፦<br/>
+            ✅ የ12ኛ ክፍል ውጤት<br/>
+            ✅ የልደት ማስረጃ<br/>
+            ✅ የፓስፖርት ፎቶ<br/><br/>
+            ሌላ ጥያቄ ካለዎት ደስተኛ ነኝ! 😊
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRICING ────────────────────────────────────── -->
+  <section class="pricing-section" id="pricing">
+    <div class="section-inner">
+      <p class="section-label lang-en">Chatbot packages</p>
+      <p class="section-label lang-am">የቻትቦት ጥቅሎች</p>
+
+      <h2 class="section-title">
+        <span class="lang-en">Simple, transparent pricing</span>
+        <span class="lang-am">ቀላል፣ ግልጽ ዋጋ</span>
+      </h2>
+
+      <p class="section-sub">
+        <span class="lang-en">All prices in USD. Payment via Wise or bank transfer.</span>
+        <span class="lang-am">ሁሉም ዋጋዎች በዶላር። ክፍያ በዋይዝ ወይም በባንክ ዝውውር።</span>
+      </p>
+
+      <div class="pricing-grid">
+        <!-- Starter -->
+        <div class="price-card">
+          <div class="price-tier lang-en">Starter</div>
+          <div class="price-tier lang-am">ጀማሪ</div>
+          <div class="price-amount">$2,000 <span>— $5,000</span></div>
+          <div class="price-duration lang-en">One-time build · 2 weeks delivery</div>
+          <div class="price-duration lang-am">አንድ ጊዜ ግንባታ · 2 ሳምንት አቅርቦት</div>
+          <ul class="price-features">
+            <li class="lang-en">Amharic chatbot on Telegram</li>
+            <li class="lang-am">በቴሌግራም አማርኛ ቻትቦት</li>
+            <li class="lang-en">FAQ answering from your documents</li>
+            <li class="lang-am">ከሰነዶቻቸው የFAQ መልስ</li>
+            <li class="lang-en">Lead capture form</li>
+            <li class="lang-am">የሊድ ማሰባሰቢያ ቅጽ</li>
+            <li class="lang-en">1 month free support</li>
+            <li class="lang-am">1 ወር ነጻ ድጋፍ</li>
+          </ul>
+          <a href="#contact" class="price-cta price-cta-outline lang-en">Get started</a>
+          <a href="#contact" class="price-cta price-cta-outline lang-am">ይጀምሩ</a>
+        </div>
+
+        <!-- Business -->
+        <div class="price-card featured">
+          <div class="price-tier lang-en">Business</div>
+          <div class="price-tier lang-am">ቢዝነስ</div>
+          <div class="price-amount">$5,000 <span>— $15,000</span></div>
+          <div class="price-duration lang-en">One-time build · 4 weeks delivery</div>
+          <div class="price-duration lang-am">አንድ ጊዜ ግንባታ · 4 ሳምንት አቅርቦት</div>
+          <ul class="price-features">
+            <li class="lang-en">Amharic + English bilingual bot</li>
+            <li class="lang-am">አማርኛ + እንግሊዝኛ ሁለት ቋንቋ ቦት</li>
+            <li class="lang-en">WhatsApp or Telegram integration</li>
+            <li class="lang-am">ዋትሳፕ ወይም ቴሌግራም ውህደት</li>
+            <li class="lang-en">Custom knowledge base build</li>
+            <li class="lang-am">ብጁ የዕውቀት መሰረት ግንባታ</li>
+            <li class="lang-en">Analytics dashboard</li>
+            <li class="lang-am">የትንታኔ ዳሽቦርድ</li>
+            <li class="lang-en">3 months support included</li>
+            <li class="lang-am">3 ወር ድጋፍ ተካቷል</li>
+          </ul>
+          <a href="#contact" class="price-cta price-cta-filled lang-en">Get started</a>
+          <a href="#contact" class="price-cta price-cta-filled lang-am">ይጀምሩ</a>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="price-card">
+          <div class="price-tier lang-en">Enterprise</div>
+          <div class="price-tier lang-am">ኢንተርፕራይዝ</div>
+          <div class="price-amount">$15,000<span>+</span></div>
+          <div class="price-duration lang-en">Custom build · ongoing retainer</div>
+          <div class="price-duration lang-am">ብጁ ግንባታ · ቀጣይ ስምምነት</div>
+          <ul class="price-features">
+            <li class="lang-en">Full Amharic AI assistant</li>
+            <li class="lang-am">ሙሉ አማርኛ AI ረዳት</li>
+            <li class="lang-en">API integration into your systems</li>
+            <li class="lang-am">ወደ ስርዓቶቻቸው API ውህደት</li>
+            <li class="lang-en">Staff training included</li>
+            <li class="lang-am">የሰራተኞች ስልጠና ተካቷል</li>
+            <li class="lang-en">Monthly maintenance retainer</li>
+            <li class="lang-am">ወርሃዊ ጥገና ስምምነት</li>
+            <li class="lang-en">Priority support — 24h response</li>
+            <li class="lang-am">ቅድሚያ ድጋፍ — 24ሰ ምላሽ</li>
+          </ul>
+          <a href="#contact" class="price-cta price-cta-outline lang-en">Let's talk</a>
+          <a href="#contact" class="price-cta price-cta-outline lang-am">እናወራ</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HOW IT WORKS ───────────────────────────────── -->
+  <section id="how">
+    <div class="section-inner">
+      <p class="section-label lang-en">The process</p>
+      <p class="section-label lang-am">ሂደቱ</p>
+
+      <h2 class="section-title">
+        <span class="lang-en">From first call to live bot — 4 steps</span>
+        <span class="lang-am">ከመጀመሪያ ጥሪ እስከ ቀጥታ ቦት — 4 ደረጃዎች</span>
+      </h2>
+
+      <p class="section-sub">
+        <span class="lang-en">We handle everything. You review and approve at each stage.</span>
+        <span class="lang-am">ሁሉንም እናስተናግዳለን። እርስዎ በእያንዳንዱ ደረጃ ይገመግሙ እና ያጸድቃሉ።</span>
+      </p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h4 class="lang-en">Discovery call</h4>
+          <h4 class="lang-am">የግኝት ጥሪ</h4>
+          <p class="lang-en">30-minute Zoom call. We learn about your organization, your customers, and what questions they ask most.</p>
+          <p class="lang-am">30 ደቂቃ ዙም ጥሪ። ስለ ድርጅቱ፣ ደንበኞቻቸው እና በብዛት የሚጠይቁትን እናውቃለን።</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h4 class="lang-en">Knowledge base build</h4>
+          <h4 class="lang-am">የዕውቀት መሰረት ግንባታ</h4>
+          <p class="lang-en">You send us your documents, FAQs, and policies. We turn them into the bot's Amharic knowledge base.</p>
+          <p class="lang-am">ሰነዶቻቸውን፣ FAQዎቻቸውን እና ፖሊሲዎቻቸውን ይልኩልን። ወደ ቦቱ የአማርኛ የዕውቀት መሰረት እንቀይራቸዋለን።</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h4 class="lang-en">Build &amp; test</h4>
+          <h4 class="lang-am">ግንባታ እና ሙከራ</h4>
+          <p class="lang-en">We build, test in Amharic, and refine until the bot responds correctly to 95%+ of questions.</p>
+          <p class="lang-am">እንሰራለን፣ በአማርኛ እንፈትናለን እና ቦቱ 95%+ ጥያቄዎችን በትክክል እስኪመልስ ድረስ እናሻሽላለን።</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h4 class="lang-en">Launch &amp; handover</h4>
+          <h4 class="lang-am">ማስጀመር እና ማስረከብ</h4>
+          <p class="lang-en">Bot goes live on your Telegram. We train your team and hand over the admin dashboard.</p>
+          <p class="lang-am">ቦቱ በቴሌግራምዎ ላይ ቀጥታ ይሆናል። ቡድናቸውን እናሰለጥናለን እና የአስተዳዳሪ ዳሽቦርዱን እናስረክባለን።</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRODUCTS ───────────────────────────────────── -->
+  <section class="products-section" id="products">
+    <div class="section-inner">
+      <p class="section-label lang-en">What we've built</p>
+      <p class="section-label lang-am">የሰራናቸው</p>
+
+      <h2 class="section-title">
+        <span class="lang-en">Products built for Ethiopia</span>
+        <span class="lang-am">ለኢትዮጵያ የተሰሩ ምርቶች</span>
+      </h2>
+
+      <p class="section-sub">
+        <span class="lang-en">We don't just build for clients — we build for Ethiopia. These are our own products: in Amharic, on affordable hardware, solving real local problems.</span>
+        <span class="lang-am">ለደንበኞች ብቻ አንሰራም — ለኢትዮጵያ እንሰራለን። እነዚህ የእኛ ምርቶች ናቸው፦ በአማርኛ፣ ተመጣጣኝ ዋጋ ባለው ሃርድዌር ላይ፣ እውነተኛ የአካባቢ ችግሮችን ይፈታሉ።</span>
+      </p>
+
+      <div class="products-grid">
+
+        <!-- Nahu Buna Gebaya -->
+        <div class="product-card">
+          <div class="product-header">
+            <div class="product-icon coffee">☕</div>
+            <div class="product-meta">
+              <div class="product-name-am">ናሁ ቡና ገበያ</div>
+              <div class="product-name-en">Nahu Buna Gebaya</div>
+              <span class="product-badge badge-live">● Live</span>
+            </div>
+          </div>
+          <div class="product-body">
+            <p class="lang-en">Ethiopia is the birthplace of coffee — yet farmers earn very little because of layers of middlemen. Nahu Buna Gebaya cuts that chain: farmers list their coffee directly, buyers and roasters worldwide discover it, and payments are held in escrow for safety. Includes an Amharic AI assistant (powered by Claude) so farmers get pricing and quality advice without needing English.</p>
+            <p class="lang-am">ኢትዮጵያ የቡናው መወለጃ ናት — ነገር ግን ገበሬዎች በደላሎች ምክንያት በጣም ትንሽ ያገኛሉ። ናሁ ቡና ገበያ ያንን ሰንሰለት ይቆርጣል፦ ገበሬዎች ቡናቸውን ቀጥታ ዝርዝር ያደርጋሉ፣ ዓለም አቀፍ ገዢዎች ያገኙታል፣ ክፍያዎች ደህንነቱ በተጠበቀ ኤስክሮ ይቀመጣሉ። ያለ እንግሊዝኛ ዋጋ እና ጥራት ምክር ለማግኘት የአማርኛ AI ረዳት (በክሎድ) አለ።</p>
+            <div class="product-features">
+              <div class="product-feature feature-green lang-en">Direct farmer-to-buyer</div>
+              <div class="product-feature feature-green lang-am">ቀጥታ ገበሬ-ወደ-ገዢ</div>
+              <div class="product-feature feature-green lang-en">Verifiable origin certificates</div>
+              <div class="product-feature feature-green lang-am">የሚረጋገጡ የመነሻ ምስክርነቶች</div>
+              <div class="product-feature feature-green lang-en">Escrow payment protection</div>
+              <div class="product-feature feature-green lang-am">የኤስክሮ ክፍያ ጥበቃ</div>
+              <div class="product-feature feature-green lang-en">Amharic AI advisor (Claude)</div>
+              <div class="product-feature feature-green lang-am">አማርኛ AI አማካሪ (ክሎድ)</div>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="product-platform">📱 <span class="lang-en-inline">Android · iOS</span><span class="lang-am-inline">አንድሮይድ · iOS</span></div>
+            <a href="#contact" class="product-link">
+              <span class="lang-en-inline">Learn more →</span>
+              <span class="lang-am-inline">ተጨማሪ ይወቁ →</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Nahu Sport -->
+        <div class="product-card">
+          <div class="product-header">
+            <div class="product-icon sport">⚽</div>
+            <div class="product-meta">
+              <div class="product-name-am">ናሁ ስፖርት</div>
+              <div class="product-name-en">Nahu Sport</div>
+              <span class="product-badge badge-soon">◎ Coming Soon</span>
+            </div>
+          </div>
+          <div class="product-body">
+            <p class="lang-en">Ethiopian sports communities — teams, coaches, athletes, and league organizers — are scattered across WhatsApp groups, spreadsheets, and phone calls. Nahu Sport brings everything into one place: register your team, manage your roster, schedule matches, chat with teammates, track player stats, and follow league standings. Launches on Android first with SMS login via Africa's Talking — no Google account required.</p>
+            <p class="lang-am">የኢትዮጵያ የስፖርት ማህበረሰቦች — ቡድኖች፣ አሰልጣኞች፣ ስፖርተኞች እና የሊግ አዘጋጆች — ወደ ዋትሳፕ ቡድኖች፣ ስፕሬድሺቶች እና ስልክ ጥሪዎች ተበታትነዋል። ናሁ ስፖርት ሁሉንም ወደ አንድ ቦታ ያመጣል፦ ቡድንዎን ይመዝግቡ፣ ሮስተርዎን ያስተዳድሩ፣ ጨዋታዎችን ያቅዱ፣ ከቡድን ጓዶቻቸው ይወያዩ፣ የተጫዋቾች ስታቲስቲክስ ይከታተሉ።</p>
+            <div class="product-features">
+              <div class="product-feature feature-coral lang-en">Team &amp; roster management</div>
+              <div class="product-feature feature-coral lang-am">የቡድን እና ሮስተር አስተዳደር</div>
+              <div class="product-feature feature-coral lang-en">Match scheduling &amp; RSVP</div>
+              <div class="product-feature feature-coral lang-am">የጨዋታ መርሐ ግብር እና RSVP</div>
+              <div class="product-feature feature-coral lang-en">League standings &amp; stats</div>
+              <div class="product-feature feature-coral lang-am">የሊግ ደረጃ እና ስታቲስቲክስ</div>
+              <div class="product-feature feature-coral lang-en">SMS login — no Google needed</div>
+              <div class="product-feature feature-coral lang-am">SMS ግቤት — ጎግል አያስፈልግም</div>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="product-platform">📱 <span class="lang-en-inline">Android first</span><span class="lang-am-inline">አንድሮይድ መጀመሪያ</span></div>
+            <a href="#contact" class="product-link">
+              <span class="lang-en-inline">Get early access →</span>
+              <span class="lang-am-inline">ቀዳሚ ተደራሽነት →</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ────────────────────────────────────── -->
+  <section class="contact-section" id="contact">
+    <div class="contact-inner">
+      <p class="section-label lang-en" style="text-align:center;">Get in touch</p>
+      <p class="section-label lang-am" style="text-align:center;">አግኙን</p>
+
+      <h2 class="section-title">
+        <span class="lang-en">Ready to bring AI to your organization?</span>
+        <span class="lang-am">AI ወደ ድርጅትዎ ለማምጣት ዝግጁ ነዎት?</span>
+      </h2>
+
+      <p class="section-sub">
+        <span class="lang-en">Reach us on Telegram for the fastest response. We reply within 24 hours.</span>
+        <span class="lang-am">ለፈጣን ምላሽ በቴሌግራም ያግኙን። በ24 ሰዓት ውስጥ እንመልሳለን።</span>
+      </p>
+
+      <div class="contact-options">
+        <a href="https://t.me/NahuAI" class="contact-option" target="_blank">
+          <div class="icon">✈️</div>
+          <div class="label">Telegram</div>
+          <div class="val">@NahuAI</div>
+        </a>
+        <a href="mailto:tesfa@nahuai.com" class="contact-option">
+          <div class="icon">📧</div>
+          <div class="label">Email</div>
+          <div class="val">tesfa@nahuai.com</div>
+        </a>
+        <a href="https://linkedin.com/company/nahuai" class="contact-option" target="_blank">
+          <div class="icon">💼</div>
+          <div class="label">LinkedIn</div>
+          <div class="val">Nahu AI</div>
+        </a>
+      </div>
+
+      <p style="font-size:13px; color:var(--muted);">
+        <span class="lang-en">Based in Saskatoon, Canada · Serving Ethiopian &amp; African businesses worldwide</span>
+        <span class="lang-am">በሳስካቱን፣ ካናዳ · ዓለም አቀፍ የኢትዮጵያ እና አፍሪካ ንግዶችን እናገለግላለን</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <svg style="width:32px;height:32px;" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="20" cy="20" rx="15" ry="6" stroke="#6C5CE7" stroke-width="1.8" transform="rotate(-35 20 20)" opacity="0.9"/>
+              <ellipse cx="20" cy="20" rx="15" ry="6" stroke="#2ECC8E" stroke-width="1.8" transform="rotate(35 20 20)" opacity="0.9"/>
+              <ellipse cx="20" cy="20" rx="15" ry="4" stroke="#E05C5C" stroke-width="1.2" opacity="0.7"/>
+              <circle cx="20" cy="20" r="4.5" fill="#6C5CE7" opacity="0.95"/>
+              <circle cx="20" cy="20" r="2.5" fill="#AFA9EC"/>
+              <text x="14.5" y="23.5" font-size="6" fill="white" font-family="'Noto Sans Ethiopic',sans-serif" opacity="0.9">ና</text>
+            </svg>
+            <span class="nav-wordmark">nahu<span>.</span>ai</span>
+          </div>
+          <p class="lang-en">Ethiopia's first Amharic AI agency. We build AI that speaks your language.</p>
+          <p class="lang-am">የኢትዮጵያ የመጀመሪያ የአማርኛ AI ኤጀንሲ። ቋንቋዎን የሚናገር AI እንሰራለን።</p>
+        </div>
+        <div class="footer-col">
+          <h5 class="lang-en">Services</h5>
+          <h5 class="lang-am">አገልግሎቶች</h5>
+          <ul>
+            <li><a href="#services">
+              <span class="lang-en-inline">Chatbot Builds</span>
+              <span class="lang-am-inline">ቻትቦት ግንባታ</span>
+            </a></li>
+            <li><a href="#services">
+              <span class="lang-en-inline">Lead Generation</span>
+              <span class="lang-am-inline">ሊድ ማፍለቂያ</span>
+            </a></li>
+            <li><a href="#pricing">
+              <span class="lang-en-inline">Pricing</span>
+              <span class="lang-am-inline">ዋጋ</span>
+            </a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5 class="lang-en">Products</h5>
+          <h5 class="lang-am">ምርቶች</h5>
+          <ul>
+            <li><a href="#products">Nahu Buna Gebaya</a></li>
+            <li><a href="#products">ናሁ ቡና ገበያ</a></li>
+            <li><a href="#products">Nahu Sport</a></li>
+            <li><a href="#products">ናሁ ስፖርት</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5 class="lang-en">Targets</h5>
+          <h5 class="lang-am">ኢላማ ደንበኞች</h5>
+          <ul>
+            <li><a href="#contact">
+              <span class="lang-en-inline">Universities</span>
+              <span class="lang-am-inline">ዩኒቨርሲቲዎች</span>
+            </a></li>
+            <li><a href="#contact">
+              <span class="lang-en-inline">Banks</span>
+              <span class="lang-am-inline">ባንኮች</span>
+            </a></li>
+            <li><a href="#contact">
+              <span class="lang-en-inline">Exporters</span>
+              <span class="lang-am-inline">ላኪዎች</span>
+            </a></li>
+            <li><a href="#contact">
+              <span class="lang-en-inline">Insurance</span>
+              <span class="lang-am-inline">ኢንሹራንስ</span>
+            </a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <ul>
+            <li><a href="https://t.me/NahuAI" target="_blank">Telegram: @NahuAI</a></li>
+            <li><a href="mailto:tesfa@nahuai.com">tesfa@nahuai.com</a></li>
+            <li><a href="https://linkedin.com/company/nahuai" target="_blank">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Nahu AI / Nahu Labs. All rights reserved.</p>
+        <p class="footer-tagline">
+          <span class="lang-en-inline">"<span style="color:var(--green)">where curiosity</span> meets craft"</span>
+          <span class="lang-am-inline">"<span style="color:var(--green)">ጉጉት</span> ከክህሎት ጋር የሚገናኝበት"</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── LANGUAGE TOGGLE SCRIPT ─────────────────── -->
+  <script>
+    function setLang(lang) {
+      const body = document.body;
+      const btnEn = document.getElementById('btn-en');
+      const btnAm = document.getElementById('btn-am');
+      if (lang === 'am') {
+        body.classList.add('am');
+        btnAm.classList.add('active');
+        btnEn.classList.remove('active');
+        localStorage.setItem('nahuai-lang', 'am');
+      } else {
+        body.classList.remove('am');
+        btnEn.classList.add('active');
+        btnAm.classList.remove('active');
+        localStorage.setItem('nahuai-lang', 'en');
+      }
+    }
+
+    // Restore saved language on load
+    const saved = localStorage.getItem('nahuai-lang');
+    if (saved === 'am') setLang('am');
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
