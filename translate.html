@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Certified Amharic to English document translation service. Accepted by IRCC, Canadian universities, and government bodies. Starting at $35 CAD."/>
+  <title>Certified Amharic Translation — Nahu AI</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f9f9f9; color: #222; line-height: 1.6; }
+    :root {
+      --green: #1D9E75; --dark: #0D3D2E; --light-green: #E8F7F2;
+      --grey: #888; --light-grey: #f2f2f2; --white: #ffffff; --border: #e0e0e0;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    .center { text-align: center; }
+
+    /* Nav */
+    nav { background: var(--dark); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand { color: #fff; font-size: 20px; font-weight: 700; text-decoration: none; }
+    .nav-brand span { color: var(--green); }
+    .lang-switch { display: flex; gap: 8px; align-items: center; }
+    .lang-btn {
+      font-size: 13px; font-weight: 600; padding: 5px 14px; border-radius: 20px;
+      text-decoration: none; border: 1.5px solid rgba(255,255,255,.3); color: #AADDCC; transition: all .2s;
+    }
+    .lang-btn.active, .lang-btn:hover { background: var(--green); border-color: var(--green); color: #fff; }
+    .nav-links a { color: #AADDCC; text-decoration: none; font-size: 14px; margin-left: 20px; }
+    .nav-links a:hover { color: #fff; }
+
+    /* Hero */
+    .hero { background: var(--dark); color: #fff; padding: 60px 24px 50px; text-align: center; }
+    .hero-tag { display: inline-block; background: var(--green); color: #fff; font-size: 12px; font-weight: 600; padding: 4px 14px; border-radius: 20px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: .04em; }
+    .hero h1 { font-size: clamp(26px,5vw,40px); font-weight: 700; line-height: 1.25; margin-bottom: 18px; }
+    .hero h1 span { color: var(--green); }
+    .hero-sub { font-size: 15px; color: #AADDCC; max-width: 580px; margin: 0 auto 28px; }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 28px; }
+    .badge { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff; font-size: 13px; padding: 6px 14px; border-radius: 20px; }
+    .badge::before { content: "✓  "; color: var(--green); }
+    .btn-primary { display: inline-block; background: var(--green); color: #fff; font-size: 15px; font-weight: 600; padding: 13px 30px; border-radius: 8px; text-decoration: none; transition: background .2s; }
+    .btn-primary:hover { background: #168a62; }
+
+    /* Section */
+    .section { padding: 52px 0; }
+    .section-alt { background: var(--light-grey); padding: 44px 0; }
+    .section-green { background: var(--light-green); padding: 44px 0; }
+    .sec-title { font-size: 22px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+    .sec-sub { font-size: 14px; color: var(--grey); margin-bottom: 8px; }
+    .divider { width: 40px; height: 3px; background: var(--green); margin: 10px 0 28px; }
+    .divider.c { margin: 10px auto 28px; }
+
+    /* Pricing */
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 20px; }
+    .card { background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 28px 24px; position: relative; transition: box-shadow .2s, border-color .2s; }
+    .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); border-color: var(--green); }
+    .card.featured { border-color: var(--green); box-shadow: 0 4px 20px rgba(29,158,117,.15); }
+    .featured-label { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--green); color: #fff; font-size: 11px; font-weight: 600; padding: 3px 14px; border-radius: 20px; white-space: nowrap; text-transform: uppercase; letter-spacing: .04em; }
+    .card-tier { font-size: 11px; font-weight: 600; color: var(--grey); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+    .card-name { font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .card-time { font-size: 13px; color: var(--grey); margin-bottom: 16px; }
+    .card-price { font-size: 36px; font-weight: 700; color: var(--dark); line-height: 1; }
+    .card-currency { font-size: 16px; font-weight: 400; color: var(--grey); }
+    .card-unit { font-size: 13px; color: var(--grey); margin-bottom: 20px; }
+    .card-features { list-style: none; margin-bottom: 22px; }
+    .card-features li { font-size: 13px; color: #444; padding: 5px 0; border-bottom: 1px solid var(--light-grey); display: flex; gap: 8px; }
+    .card-features li:last-child { border-bottom: none; }
+    .card-features li::before { content: "✓"; color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .btn-order { display: block; width: 100%; background: var(--dark); color: #fff; font-size: 14px; font-weight: 600; padding: 12px; border-radius: 8px; text-align: center; text-decoration: none; transition: background .2s; }
+    .btn-order:hover { background: var(--green); }
+    .btn-order.g { background: var(--green); }
+    .btn-order.g:hover { background: #168a62; }
+
+    /* Bundles */
+    .bundle-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 16px; }
+    .bundle-card { background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 22px 20px; display: flex; gap: 16px; }
+    .bundle-icon { background: var(--light-green); color: var(--green); font-size: 22px; width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .bundle-name { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .bundle-desc { font-size: 12px; color: var(--grey); margin-bottom: 10px; line-height: 1.4; }
+    .bundle-price-row { display: flex; align-items: baseline; gap: 8px; }
+    .bundle-price { font-size: 20px; font-weight: 700; color: var(--dark); }
+    .bundle-was { font-size: 12px; color: var(--grey); text-decoration: line-through; }
+    .bundle-save { font-size: 11px; font-weight: 600; color: var(--green); background: var(--light-green); padding: 2px 7px; border-radius: 4px; }
+
+    /* Addons */
+    .addon-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 12px; }
+    .addon-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+    .addon-name { font-size: 13px; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+    .addon-price { font-size: 20px; font-weight: 700; color: var(--green); margin-bottom: 4px; }
+    .addon-desc { font-size: 12px; color: var(--grey); line-height: 1.4; }
+
+    /* Docs */
+    .doc-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 10px; }
+    .doc-item { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #444; display: flex; gap: 8px; align-items: center; }
+    .doc-item::before { content: "📄"; font-size: 16px; flex-shrink: 0; }
+
+    /* Steps */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 20px; }
+    .step { text-align: center; padding: 20px 16px; background: #fff; border: 1px solid var(--border); border-radius: 12px; }
+    .step-num { width: 38px; height: 38px; background: var(--dark); color: #fff; border-radius: 50%; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
+    .step-title { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
+    .step-desc { font-size: 12px; color: var(--grey); line-height: 1.4; }
+
+    /* FAQ */
+    .faq-item { background: #fff; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+    .faq-q { width: 100%; text-align: left; background: none; border: none; padding: 16px 20px; font-size: 14px; font-weight: 600; color: var(--dark); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .faq-q::after { content: "+"; font-size: 20px; color: var(--green); flex-shrink: 0; transition: transform .2s; }
+    .faq-item.open .faq-q::after { transform: rotate(45deg); }
+    .faq-a { display: none; padding: 0 20px 16px; font-size: 13px; color: #555; line-height: 1.6; border-top: 1px solid var(--light-grey); }
+    .faq-item.open .faq-a { display: block; }
+
+    /* Contact */
+    .contact-strip { background: var(--dark); color: #fff; padding: 44px 24px; text-align: center; }
+    .contact-strip h2 { font-size: 22px; margin-bottom: 6px; }
+    .contact-strip p { color: #AADDCC; font-size: 14px; margin-bottom: 24px; }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .contact-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); color: #fff; font-size: 14px; font-weight: 600; padding: 11px 22px; border-radius: 8px; text-decoration: none; transition: background .2s; }
+    .contact-btn:hover { background: var(--green); }
+    .contact-btn.p { background: var(--green); border-color: var(--green); }
+    .contact-btn.p:hover { background: #168a62; }
+
+    footer { background: #0a2e22; color: #AADDCC; text-align: center; padding: 22px 24px; font-size: 13px; }
+    footer a { color: var(--green); text-decoration: none; }
+    .mt-8 { margin-top: 8px; } .mt-16 { margin-top: 16px; } .mt-24 { margin-top: 24px; } .mt-36 { margin-top: 36px; }
+    @media(max-width:600px){ .pricing-grid,.steps{ grid-template-columns:1fr; } .nav-links{ display:none; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://nahuai.app" class="nav-brand">ና <span>Nahu AI</span></a>
+  <div style="display:flex;align-items:center;gap:20px;">
+    <div class="nav-links">
+      <a href="#pricing">Pricing</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="lang-switch">
+      <a href="translate.html" class="lang-btn active">EN</a>
+      <a href="translate-am.html" class="lang-btn">አማ</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag">Certified Translation Service</div>
+    <h1>Certified Amharic<br/><span>Document Translation</span></h1>
+    <p class="hero-sub">Official Amharic ↔ English translation for immigration, universities, and Canadian government institutions. Accepted by IRCC and all major credential bodies.</p>
+    <div class="hero-badges">
+      <span class="badge">Accepted by IRCC</span>
+      <span class="badge">Canadian universities</span>
+      <span class="badge">Ethiopian embassy</span>
+      <span class="badge">Starting at $35 CAD</span>
+      <span class="badge">Saskatoon, Canada</span>
+    </div>
+    <a href="#pricing" class="btn-primary">See pricing →</a>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="section" id="pricing">
+  <div class="container">
+    <h2 class="sec-title">Pricing</h2>
+    <p class="sec-sub">Choose the speed that fits your deadline</p>
+    <div class="divider"></div>
+    <div class="pricing-grid">
+      <div class="card">
+        <p class="card-tier">Standard</p>
+        <p class="card-name">Standard Translation</p>
+        <p class="card-time">Delivered in 3–5 business days</p>
+        <p class="card-price">$35 <span class="card-currency">CAD</span></p>
+        <p class="card-unit">per document</p>
+        <ul class="card-features">
+          <li>Amharic ↔ English</li>
+          <li>Signed attestation certificate</li>
+          <li>PDF delivery by email</li>
+          <li>Accepted by IRCC</li>
+          <li>Confidential handling</li>
+        </ul>
+        <a href="https://buy.stripe.com/4gMfZh6i27l9b1v4LXfw400" class="btn-order">Order — $35 CAD</a>
+      </div>
+      <div class="card featured">
+        <div class="featured-label">Most ordered</div>
+        <p class="card-tier">Expedited</p>
+        <p class="card-name">Expedited Translation</p>
+        <p class="card-time">Delivered within 48 hours</p>
+        <p class="card-price">$55 <span class="card-currency">CAD</span></p>
+        <p class="card-unit">per document</p>
+        <ul class="card-features">
+          <li>Everything in Standard</li>
+          <li>Priority queue</li>
+          <li>Email status update</li>
+          <li>Ideal for upcoming deadlines</li>
+        </ul>
+        <a href="https://buy.stripe.com/28EeVdayigVJ5Hb92dfw401" class="btn-order g">Order — $55 CAD</a>
+      </div>
+      <div class="card">
+        <p class="card-tier">Urgent</p>
+        <p class="card-name">Urgent Translation</p>
+        <p class="card-time">Delivered within 24 hours</p>
+        <p class="card-price">$80 <span class="card-currency">CAD</span></p>
+        <p class="card-unit">per document</p>
+        <ul class="card-features">
+          <li>Everything in Expedited</li>
+          <li>Same-day start</li>
+          <li>Direct WhatsApp contact</li>
+          <li>For visa & court deadlines</li>
+        </ul>
+        <a href="https://buy.stripe.com/5kQ7sL35QgVJ1qVcepfw402" class="btn-order">Order — $80 CAD</a>
+      </div>
+    </div>
+
+    <h3 class="mt-36" style="font-size:16px;font-weight:700;color:var(--dark);margin-bottom:6px;">Bundle packages</h3>
+    <p class="sec-sub mt-8">Save when you translate multiple documents</p>
+    <div class="bundle-grid mt-16">
+      <div class="bundle-card">
+        <div class="bundle-icon">👨‍👩‍👧</div>
+        <div>
+          <p class="bundle-name">Family Bundle — 5 documents</p>
+          <p class="bundle-desc">Most common for sponsorship applications. Birth certificates, marriage certificate, and related documents.</p>
+          <div class="bundle-price-row"><span class="bundle-price">$150 CAD</span><span class="bundle-was">$175</span><span class="bundle-save">Save $25</span></div>
+        </div>
+      </div>
+      <div class="bundle-card">
+        <div class="bundle-icon">🎓</div>
+        <div>
+          <p class="bundle-name">Professional Bundle — 8 documents</p>
+          <p class="bundle-desc">For credential recognition. Degree, transcripts, license, and employment letters.</p>
+          <div class="bundle-price-row"><span class="bundle-price">$220 CAD</span><span class="bundle-was">$280</span><span class="bundle-save">Save $60</span></div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--grey);margin-top:12px;">For bundle orders WhatsApp us: <a href="https://wa.me/16395973635" style="color:var(--green);font-weight:600;">+1 (639) 597-3635</a></p>
+
+    <h3 class="mt-36" style="font-size:16px;font-weight:700;color:var(--dark);margin-bottom:6px;">Add-ons</h3>
+    <div class="addon-grid mt-16">
+      <div class="addon-card"><p class="addon-name">Notarized certificate</p><p class="addon-price">+$25</p><p class="addon-desc">Translator signature notarized by a Saskatoon notary. Required by some embassies and courts.</p></div>
+      <div class="addon-card"><p class="addon-name">Hard copy by mail</p><p class="addon-price">+$15</p><p class="addon-desc">Physical signed certificate mailed via Canada Post within Canada.</p></div>
+      <div class="addon-card"><p class="addon-name">Extra copy</p><p class="addon-price">+$8</p><p class="addon-desc">Additional certified PDF copy for a different institution or application.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Documents -->
+<section class="section-green">
+  <div class="container">
+    <h2 class="sec-title center">Documents we translate</h2>
+    <div class="divider c"></div>
+    <div class="doc-grid">
+      <div class="doc-item">Birth certificate</div>
+      <div class="doc-item">Marriage certificate</div>
+      <div class="doc-item">Divorce decree</div>
+      <div class="doc-item">Death certificate</div>
+      <div class="doc-item">Educational diploma</div>
+      <div class="doc-item">Academic transcript</div>
+      <div class="doc-item">Police clearance letter</div>
+      <div class="doc-item">Employment letter</div>
+      <div class="doc-item">Bank statement</div>
+      <div class="doc-item">Adoption papers</div>
+      <div class="doc-item">Kebele / National ID</div>
+      <div class="doc-item">Work experience certificate</div>
+    </div>
+    <p style="font-size:13px;color:var(--grey);margin-top:16px;text-align:center;">Not listed? <a href="https://wa.me/16395973635" style="color:var(--green);font-weight:600;">Ask us on WhatsApp</a></p>
+  </div>
+</section>
+
+<!-- How it works -->
+<section class="section" id="how">
+  <div class="container">
+    <h2 class="sec-title center">How it works</h2>
+    <p class="sec-sub center">Four simple steps from order to delivery</p>
+    <div class="divider c"></div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><p class="step-title">Place your order</p><p class="step-desc">Choose your tier and pay securely via Stripe. Takes 2 minutes.</p></div>
+      <div class="step"><div class="step-num">2</div><p class="step-title">Send your document</p><p class="step-desc">Reply to your confirmation email with a clear PDF or photo of your document.</p></div>
+      <div class="step"><div class="step-num">3</div><p class="step-title">We translate</p><p class="step-desc">AI-assisted translation reviewed by a native Amharic speaker for accuracy.</p></div>
+      <div class="step"><div class="step-num">4</div><p class="step-title">Receive your certificate</p><p class="step-desc">PDF translation + signed attestation certificate delivered to your email.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section-alt" id="faq">
+  <div class="container">
+    <h2 class="sec-title center">Frequently asked questions</h2>
+    <div class="divider c"></div>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q">Is this accepted by Canadian immigration (IRCC)?</button><div class="faq-a">Yes. IRCC accepts translations accompanied by a signed translator attestation certificate, which is included with every Nahu AI translation. We have served Ethiopian clients for sponsorship, study permit, and permanent residency applications.</div></div>
+      <div class="faq-item"><button class="faq-q">Is this accepted by Canadian universities and credential bodies?</button><div class="faq-a">Yes. Our certified translations are accepted by USask, WES, NNAS, Engineers Canada, and most Canadian credential recognition bodies. Contact us before ordering if your institution has specific requirements.</div></div>
+      <div class="faq-item"><button class="faq-q">Is this accepted by the Ethiopian embassy in Canada?</button><div class="faq-a">Yes for most purposes. If the embassy specifically requires a notarized translation, add the +$25 notarization option when you contact us.</div></div>
+      <div class="faq-item"><button class="faq-q">How do I send my document?</button><div class="faq-a">After payment you will receive a confirmation email. Simply reply with your document attached as a PDF or clear photo. A scanned copy is sufficient as long as all text is legible.</div></div>
+      <div class="faq-item"><button class="faq-q">Is my personal information kept confidential?</button><div class="faq-a">Yes. Your documents are handled only by Nahu AI and your assigned translator reviewer under a strict confidentiality agreement. We never share client documents with third parties.</div></div>
+      <div class="faq-item"><button class="faq-q">What if the translation contains an error?</button><div class="faq-a">We will correct any factual errors in names, dates, or document numbers at no charge. Email us within 7 days of delivery.</div></div>
+      <div class="faq-item"><button class="faq-q">Do you translate English to Amharic as well?</button><div class="faq-a">Yes. We translate in both directions — Amharic to English and English to Amharic. Commonly needed for documents sent to Ethiopian authorities.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-strip" id="contact">
+  <div class="container">
+    <h2>Ready to get started?</h2>
+    <p>Order online or contact us directly on WhatsApp for bundle orders and questions.</p>
+    <div class="contact-links">
+      <a href="#pricing" class="contact-btn p">Order now</a>
+      <a href="https://wa.me/16395973635" class="contact-btn">💬 WhatsApp +1 (639) 597-3635</a>
+      <a href="mailto:tesfa@nahuai.app" class="contact-btn">✉️ tesfa@nahuai.app</a>
+    </div>
+  </div>
+</section>
+
+<footer><p>© 2026 Nahu AI Translation Services — Saskatoon, Saskatchewan, Canada &nbsp;·&nbsp; <a href="https://nahuai.app">nahuai.app</a> &nbsp;·&nbsp; <a href="mailto:tesfa@nahuai.app">tesfa@nahuai.app</a></p></footer>
+
+<script>
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+</script>
+</body>
+</html>

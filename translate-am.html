@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="ምስክርነት የተሰጠ የአማርኛ ሰነድ ትርጉም አገልግሎት። ለ IRCC፣ ለካናዳ ዩኒቨርሲቲዎች እና ለመንግስት ተቀባይነት አለው። ከ $35 ካናዳ ዶላር ጀምሮ።"/>
+  <title>ምስክርነት የተሰጠ የአማርኛ ትርጉም — ናሁ ኤ አይ</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f9f9f9; color: #222; line-height: 1.7; }
+    :root {
+      --green: #1D9E75; --dark: #0D3D2E; --light-green: #E8F7F2;
+      --grey: #888; --light-grey: #f2f2f2; --white: #ffffff; --border: #e0e0e0;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    .center { text-align: center; }
+
+    nav { background: var(--dark); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand { color: #fff; font-size: 20px; font-weight: 700; text-decoration: none; }
+    .nav-brand span { color: var(--green); }
+    .lang-switch { display: flex; gap: 8px; align-items: center; }
+    .lang-btn { font-size: 13px; font-weight: 600; padding: 5px 14px; border-radius: 20px; text-decoration: none; border: 1.5px solid rgba(255,255,255,.3); color: #AADDCC; transition: all .2s; }
+    .lang-btn.active, .lang-btn:hover { background: var(--green); border-color: var(--green); color: #fff; }
+    .nav-links a { color: #AADDCC; text-decoration: none; font-size: 14px; margin-left: 20px; }
+    .nav-links a:hover { color: #fff; }
+
+    .hero { background: var(--dark); color: #fff; padding: 60px 24px 50px; text-align: center; }
+    .hero-tag { display: inline-block; background: var(--green); color: #fff; font-size: 12px; font-weight: 600; padding: 4px 14px; border-radius: 20px; margin-bottom: 16px; }
+    .hero h1 { font-size: clamp(24px,5vw,38px); font-weight: 700; line-height: 1.3; margin-bottom: 18px; }
+    .hero h1 span { color: var(--green); }
+    .hero-sub { font-size: 15px; color: #AADDCC; max-width: 580px; margin: 0 auto 28px; }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 28px; }
+    .badge { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff; font-size: 13px; padding: 6px 14px; border-radius: 20px; }
+    .badge::before { content: "✓  "; color: var(--green); }
+    .btn-primary { display: inline-block; background: var(--green); color: #fff; font-size: 15px; font-weight: 600; padding: 13px 30px; border-radius: 8px; text-decoration: none; transition: background .2s; }
+    .btn-primary:hover { background: #168a62; }
+
+    .section { padding: 52px 0; }
+    .section-alt { background: var(--light-grey); padding: 44px 0; }
+    .section-green { background: var(--light-green); padding: 44px 0; }
+    .sec-title { font-size: 22px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+    .sec-sub { font-size: 14px; color: var(--grey); margin-bottom: 8px; }
+    .divider { width: 40px; height: 3px; background: var(--green); margin: 10px 0 28px; }
+    .divider.c { margin: 10px auto 28px; }
+
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 20px; }
+    .card { background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 28px 24px; position: relative; transition: box-shadow .2s, border-color .2s; }
+    .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); border-color: var(--green); }
+    .card.featured { border-color: var(--green); box-shadow: 0 4px 20px rgba(29,158,117,.15); }
+    .featured-label { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--green); color: #fff; font-size: 11px; font-weight: 600; padding: 3px 14px; border-radius: 20px; white-space: nowrap; }
+    .card-tier { font-size: 11px; font-weight: 600; color: var(--grey); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+    .card-name { font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .card-time { font-size: 13px; color: var(--grey); margin-bottom: 16px; }
+    .card-price { font-size: 36px; font-weight: 700; color: var(--dark); line-height: 1; }
+    .card-currency { font-size: 16px; font-weight: 400; color: var(--grey); }
+    .card-unit { font-size: 13px; color: var(--grey); margin-bottom: 20px; }
+    .card-features { list-style: none; margin-bottom: 22px; }
+    .card-features li { font-size: 13px; color: #444; padding: 5px 0; border-bottom: 1px solid var(--light-grey); display: flex; gap: 8px; }
+    .card-features li:last-child { border-bottom: none; }
+    .card-features li::before { content: "✓"; color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .btn-order { display: block; width: 100%; background: var(--dark); color: #fff; font-size: 14px; font-weight: 600; padding: 12px; border-radius: 8px; text-align: center; text-decoration: none; transition: background .2s; }
+    .btn-order:hover { background: var(--green); }
+    .btn-order.g { background: var(--green); }
+    .btn-order.g:hover { background: #168a62; }
+
+    .bundle-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 16px; }
+    .bundle-card { background: #fff; border: 1.5px solid var(--border); border-radius: 12px; padding: 22px 20px; display: flex; gap: 16px; }
+    .bundle-icon { background: var(--light-green); color: var(--green); font-size: 22px; width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .bundle-name { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .bundle-desc { font-size: 12px; color: var(--grey); margin-bottom: 10px; line-height: 1.5; }
+    .bundle-price-row { display: flex; align-items: baseline; gap: 8px; }
+    .bundle-price { font-size: 20px; font-weight: 700; color: var(--dark); }
+    .bundle-was { font-size: 12px; color: var(--grey); text-decoration: line-through; }
+    .bundle-save { font-size: 11px; font-weight: 600; color: var(--green); background: var(--light-green); padding: 2px 7px; border-radius: 4px; }
+
+    .addon-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 12px; }
+    .addon-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+    .addon-name { font-size: 13px; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+    .addon-price { font-size: 20px; font-weight: 700; color: var(--green); margin-bottom: 4px; }
+    .addon-desc { font-size: 12px; color: var(--grey); line-height: 1.5; }
+
+    .doc-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 10px; }
+    .doc-item { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #444; display: flex; gap: 8px; align-items: center; }
+    .doc-item::before { content: "📄"; font-size: 16px; flex-shrink: 0; }
+
+    .steps { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 20px; }
+    .step { text-align: center; padding: 20px 16px; background: #fff; border: 1px solid var(--border); border-radius: 12px; }
+    .step-num { width: 38px; height: 38px; background: var(--dark); color: #fff; border-radius: 50%; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
+    .step-title { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
+    .step-desc { font-size: 12px; color: var(--grey); line-height: 1.5; }
+
+    .faq-item { background: #fff; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+    .faq-q { width: 100%; text-align: right; background: none; border: none; padding: 16px 20px; font-size: 14px; font-weight: 600; color: var(--dark); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-family: inherit; }
+    .faq-q::after { content: "+"; font-size: 20px; color: var(--green); flex-shrink: 0; transition: transform .2s; }
+    .faq-item.open .faq-q::after { transform: rotate(45deg); }
+    .faq-a { display: none; padding: 0 20px 16px; font-size: 13px; color: #555; line-height: 1.7; border-top: 1px solid var(--light-grey); }
+    .faq-item.open .faq-a { display: block; }
+
+    .contact-strip { background: var(--dark); color: #fff; padding: 44px 24px; text-align: center; }
+    .contact-strip h2 { font-size: 22px; margin-bottom: 6px; }
+    .contact-strip p { color: #AADDCC; font-size: 14px; margin-bottom: 24px; }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .contact-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); color: #fff; font-size: 14px; font-weight: 600; padding: 11px 22px; border-radius: 8px; text-decoration: none; transition: background .2s; }
+    .contact-btn:hover { background: var(--green); }
+    .contact-btn.p { background: var(--green); border-color: var(--green); }
+    .contact-btn.p:hover { background: #168a62; }
+
+    footer { background: #0a2e22; color: #AADDCC; text-align: center; padding: 22px 24px; font-size: 13px; }
+    footer a { color: var(--green); text-decoration: none; }
+    .mt-8 { margin-top: 8px; } .mt-16 { margin-top: 16px; } .mt-24 { margin-top: 24px; } .mt-36 { margin-top: 36px; }
+    @media(max-width:600px){ .pricing-grid,.steps{ grid-template-columns:1fr; } .nav-links{ display:none; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://nahuai.app" class="nav-brand">ና <span>Nahu AI</span></a>
+  <div style="display:flex;align-items:center;gap:20px;">
+    <div class="nav-links">
+      <a href="#pricing">ዋጋ</a>
+      <a href="#how">እንዴት ይሰራል</a>
+      <a href="#faq">ጥያቄዎች</a>
+    </div>
+    <div class="lang-switch">
+      <a href="translate.html" class="lang-btn">EN</a>
+      <a href="translate-am.html" class="lang-btn active">አማ</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag">ምስክርነት የተሰጠ ትርጉም አገልግሎት</div>
+    <h1>ምስክርነት የተሰጠ<br/><span>የአማርኛ ሰነድ ትርጉም</span></h1>
+    <p class="hero-sub">ለኢሚግሬሽን (IRCC)፣ ለዩኒቨርሲቲ እና ለካናዳ መንግስት ተቋማት ይፋዊ የአማርኛ ↔ እንግሊዝኛ ትርጉም። ሁሉም ዋና ዋና ካናዳዊ አካላት ተቀባይነት አለው።</p>
+    <div class="hero-badges">
+      <span class="badge">ለ IRCC ተቀባይነት አለው</span>
+      <span class="badge">ለካናዳ ዩኒቨርሲቲዎች</span>
+      <span class="badge">ለኢትዮጵያ ኤምባሲ</span>
+      <span class="badge">ከ $35 ካናዳ ዶላር ጀምሮ</span>
+      <span class="badge">ሳስካቱን፣ ካናዳ</span>
+    </div>
+    <a href="#pricing" class="btn-primary">ዋጋ ይመልከቱ →</a>
+  </div>
+</section>
+
+<!-- ዋጋ -->
+<section class="section" id="pricing">
+  <div class="container">
+    <h2 class="sec-title">ዋጋ</h2>
+    <p class="sec-sub">ለጊዜ ሰሌዳዎ የሚስማማውን ፍጥነት ይምረጡ</p>
+    <div class="divider"></div>
+    <div class="pricing-grid">
+
+      <div class="card">
+        <p class="card-tier">መደበኛ — Standard</p>
+        <p class="card-name">መደበኛ ትርጉም</p>
+        <p class="card-time">በ 3–5 የስራ ቀናት ይቀርባል</p>
+        <p class="card-price">$35 <span class="card-currency">CAD</span></p>
+        <p class="card-unit">በእያንዳንዱ ሰነድ</p>
+        <ul class="card-features">
+          <li>አማርኛ ↔ እንግሊዝኛ</li>
+          <li>ፊርማ የተሰጠ የምስክርነት ሰነድ</li>
+          <li>PDF በኢሜይል ይቀርባል</li>
+          <li>ለ IRCC ተቀባይነት አለው</li>
+          <li>ሚስጥራዊነት የተጠበቀ</li>
+        </ul>
+        <a href="https://buy.stripe.com/4gMfZh6i27l9b1v4LXfw400" class="btn-order">ያዝዙ — $35 CAD</a>
+      </div>
+
+      <div class="card featured">
+        <div class="featured-label">በብዛት የሚዘዘው</div>
+        <p class="card-tier">ፈጣን — Expedited</p>
+        <p class="card-name">ፈጣን ትርጉም</p>
+        <p class="card-time">በ 48 ሰዓት ውስጥ ይቀርባል</p>
+        <p class="card-price">$55 <span class="card-currency">CAD</span></p>
+        <p class="card-unit">በእያንዳንዱ ሰነድ</p>
+        <ul class="card-features">
+          <li>የመደበኛ ትርጉም ሁሉም አገልግሎቶች</li>
+          <li>ቅድሚያ ተሰጥቶ ይሰራል</li>
+          <li>የሁኔታ ኢሜይል ማሳወቂያ</li>
+          <li>ለቀጣዩ ቀነ-ገደብ ተስማሚ</li>
+        </ul>
+        <a href="https://buy.stripe.com/28EeVdayigVJ5Hb92dfw401" class="btn-order g">ያዝዙ — $55 CAD</a>
+      </div>
+
+      <div class="card">
+        <p class="card-tier">አስቸኳይ — Urgent</p>
+        <p class="card-name">አስቸኳይ ትርጉም</p>
+        <p class="card-time">በ 24 ሰዓት ውስጥ ይቀርባል</p>
+        <p class="card-price">$80 <span class="card-currency">CAD</span></p>
+        <p class="card-unit">በእያንዳንዱ ሰነድ</p>
+        <ul class="card-features">
+          <li>የፈጣን ትርጉም ሁሉም አገልግሎቶች</li>
+          <li>በዚያው ቀን ይጀምራል</li>
+          <li>ቀጥታ WhatsApp ግንኙነት</li>
+          <li>ለቪዛ እና ለፍርድ ቤት ቀነ-ገደቦች</li>
+        </ul>
+        <a href="https://buy.stripe.com/5kQ7sL35QgVJ1qVcepfw402" class="btn-order">ያዝዙ — $80 CAD</a>
+      </div>
+
+    </div>
+
+    <h3 class="mt-36" style="font-size:16px;font-weight:700;color:var(--dark);margin-bottom:6px;">ፓኬጆች — Bundle packages</h3>
+    <p class="sec-sub mt-8">ብዙ ሰነዶች ሲተረጎሙ ቅናሽ ያገኛሉ</p>
+    <div class="bundle-grid mt-16">
+      <div class="bundle-card">
+        <div class="bundle-icon">👨‍👩‍👧</div>
+        <div>
+          <p class="bundle-name">የቤተሰብ ፓኬጅ — 5 ሰነዶች</p>
+          <p class="bundle-desc">ለቤተሰብ ስፖንሰርሺፕ ማመልከቻ በብዛት ጥቅም ላይ ይውላል። የልደት ምስክርነቶች፣ የጋብቻ ምስክርነት እና ተዛማጅ ሰነዶች።</p>
+          <div class="bundle-price-row"><span class="bundle-price">$150 CAD</span><span class="bundle-was">$175</span><span class="bundle-save">$25 ቅናሽ</span></div>
+        </div>
+      </div>
+      <div class="bundle-card">
+        <div class="bundle-icon">🎓</div>
+        <div>
+          <p class="bundle-name">የሙያ ፓኬጅ — 8 ሰነዶች</p>
+          <p class="bundle-desc">ለሙያ እውቅና ማስጠየቅ። ዲፕሎማ፣ ትራንስክሪፕት፣ ፈቃድ እና የስራ ማስረጃ ደብዳቤ ይካተታሉ።</p>
+          <div class="bundle-price-row"><span class="bundle-price">$220 CAD</span><span class="bundle-was">$280</span><span class="bundle-save">$60 ቅናሽ</span></div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--grey);margin-top:12px;">ለፓኬጅ ትዕዛዝ በWhatsApp ያግኙን: <a href="https://wa.me/16395973635" style="color:var(--green);font-weight:600;">+1 (639) 597-3635</a></p>
+
+    <h3 class="mt-36" style="font-size:16px;font-weight:700;color:var(--dark);margin-bottom:6px;">ተጨማሪ አገልግሎቶች — Add-ons</h3>
+    <div class="addon-grid mt-16">
+      <div class="addon-card"><p class="addon-name">ምስክርነት (Notarized) ሰነድ</p><p class="addon-price">+$25</p><p class="addon-desc">የተርጓሚ ፊርማ በሳስካቱን ኖታሪ ይረጋገጣል። በአንዳንድ ኤምባሲዎች እና ፍርድ ቤቶች ያስፈልጋል።</p></div>
+      <div class="addon-card"><p class="addon-name">ፖስታ ቤት ቅጂ</p><p class="addon-price">+$15</p><p class="addon-desc">ፊርማ የተሰጠ ሰነድ በካናዳ ፖስታ ቤት ይላካል።</p></div>
+      <div class="addon-card"><p class="addon-name">ተጨማሪ ቅጂ</p><p class="addon-price">+$8</p><p class="addon-desc">ለሌላ ተቋም ወይም ማመልከቻ ተጨማሪ ምስክርነት PDF ቅጂ።</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- የምንተረጉማቸው ሰነዶች -->
+<section class="section-green">
+  <div class="container">
+    <h2 class="sec-title center">የምንተረጉማቸው ሰነዶች</h2>
+    <div class="divider c"></div>
+    <div class="doc-grid">
+      <div class="doc-item">የልደት ምስክርነት</div>
+      <div class="doc-item">የጋብቻ ምስክርነት</div>
+      <div class="doc-item">የፍቺ ትዕዛዝ</div>
+      <div class="doc-item">የሞት ምስክርነት</div>
+      <div class="doc-item">ዲፕሎማ</div>
+      <div class="doc-item">የትምህርት ትራንስክሪፕት</div>
+      <div class="doc-item">የፖሊስ ማጽጃ ደብዳቤ</div>
+      <div class="doc-item">የስራ ማስረጃ ደብዳቤ</div>
+      <div class="doc-item">የባንክ መግለጫ</div>
+      <div class="doc-item">የጉዲፈቻ ሰነዶች</div>
+      <div class="doc-item">ቀበሌ / ብሔራዊ መታወቂያ</div>
+      <div class="doc-item">የስራ ልምድ ምስክርነት</div>
+    </div>
+    <p style="font-size:13px;color:var(--grey);margin-top:16px;text-align:center;">ሰነድዎ ከዝርዝሩ ውጭ ነው? <a href="https://wa.me/16395973635" style="color:var(--green);font-weight:600;">በWhatsApp ይጠይቁ</a></p>
+  </div>
+</section>
+
+<!-- እንዴት ይሰራል -->
+<section class="section" id="how">
+  <div class="container">
+    <h2 class="sec-title center">እንዴት ይሰራል</h2>
+    <p class="sec-sub center">ከትዕዛዝ እስከ አቅርቦት አራት ቀላል ደረጃዎች</p>
+    <div class="divider c"></div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><p class="step-title">ትዕዛዝ ያስቀምጡ</p><p class="step-desc">የሚፈልጉትን ፍጥነት ይምረጡ እና በ Stripe (ዘዴ ክፍያ) ደህንነቱ በተጠበቀ መልኩ ይክፈሉ። 2 ደቂቃ ብቻ ይወስዳል።</p></div>
+      <div class="step"><div class="step-num">2</div><p class="step-title">ሰነድዎን ይላኩ</p><p class="step-desc">የማረጋገጫ ኢሜይሉን ሲያገኙ፣ ሰነድዎን እንደ PDF ወይም ግልጽ ፎቶ አያይዘው ይላኩልን።</p></div>
+      <div class="step"><div class="step-num">3</div><p class="step-title">እኛ እንተረጉማለን</p><p class="step-desc">AI-Assisted ትርጉም ተወላጅ የአማርኛ ተናጋሪ ያረምረዋል እና ትክክለኛነቱን ያረጋግጣል።</p></div>
+      <div class="step"><div class="step-num">4</div><p class="step-title">ምስክርነቱን ይቀበሉ</p><p class="step-desc">የተተረጎመ PDF እና ፊርማ የተሰጠ የምስክርነት ሰነድ ወደ ኢሜይልዎ ይላካል።</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ተደጋጋሚ ጥያቄዎች -->
+<section class="section-alt" id="faq">
+  <div class="container">
+    <h2 class="sec-title center">ተደጋጋሚ ጥያቄዎች</h2>
+    <div class="divider c"></div>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q">ይህ ለካናዳ ኢሚግሬሽን (IRCC) ተቀባይነት አለው?</button><div class="faq-a">አዎ። IRCC ፊርማ የተሰጠ የተርጓሚ ምስክርነት ሰነድ ጋር የቀረቡ ትርጉሞችን ይቀበላል። ይህ ሰነድ በእያንዳንዱ ናሁ ኤ አይ ትርጉም ይካተታል። ለስፖንሰርሺፕ፣ ለጥናት ፈቃድ እና ለቋሚ ነዋሪነት ማመልከቻዎች ኢትዮጵያዊ ደንበኞችን አገልግለናል።</div></div>
+      <div class="faq-item"><button class="faq-q">ለካናዳ ዩኒቨርሲቲዎች እና ለሙያ እውቅና አካላት ተቀባይነት አለው?</button><div class="faq-a">አዎ። የኛ ምስክርነት ትርጉሞች በዩኒቨርሲቲ ኦፍ ሳስካቸዋን፣ WES፣ NNAS፣ Engineers Canada እና በብዛት ካናዳዊ ሙያ እውቅና አካላት ተቀባይነት አላቸው። ተቋምዎ ልዩ መስፈርቶች ካሉት ትዕዛዝ ከማስቀመጡ በፊት ያግኙን።</div></div>
+      <div class="faq-item"><button class="faq-q">ለካናዳዋ ኢትዮጵያ ኤምባሲ ተቀባይነት አለው?</button><div class="faq-a">አዎ፣ ለብዛቱ አላማዎች። ኤምባሲው በተለይ ምስክርነት ሰነድ (Notarized) ትርጉም ከጠየቀ፣ ትዕዛዝ ሲያስቀምጡ +$25 ምስክርነት ሰነድ አማራጩን ይጠቀሙ።</div></div>
+      <div class="faq-item"><button class="faq-q">ሰነዴን እንዴት እልካለሁ?</button><div class="faq-a">ክፍያ ከፈፀሙ በኋላ የማረጋገጫ ኢሜይል ይደርስዎታል። ለዚያ ኢሜይል ሰነዱን እንደ PDF ወይም ግልጽ ፎቶ አያይዘው ምላሽ ይስጡ። ዋናው ሰነድ አያስፈልግም — ሁሉም ጽሑፍ የሚታይ ከሆነ የስካን ቅጂ ይበቃል።</div></div>
+      <div class="faq-item"><button class="faq-q">የግሌ መረጃ ሚስጥራዊ ሆኖ ይቆያል?</button><div class="faq-a">አዎ። ሰነዶቻቸው የሚያዙት በናሁ ኤ አይ እና በሚሰሩት ተርጓሚ ብቻ ነው። ለሶስተኛ ወገን ፈጽሞ አናጋራም። ሰነዶቹ ከተቀርቡ 30 ቀናት ውስጥ ከስርዓታችን ይሰረዛሉ።</div></div>
+      <div class="faq-item"><button class="faq-q">ትርጉሙ ስህተት ቢኖረው ምን ይደረጋል?</button><div class="faq-a">በስሞች፣ ቀናቶች ወይም የሰነድ ቁጥሮች ላይ ያሉ ማንኛቸውም ትክክለኛ ስህተቶችን ያለምንም ክፍያ እናስተካክላለን። በአቅርቦቱ ከ 7 ቀናት ውስጥ ኢሜይል ይላኩልን።</div></div>
+      <div class="faq-item"><button class="faq-q">ከእንግሊዝኛ ወደ አማርኛ ይተረጉሙ?</button><div class="faq-a">አዎ። በሁለቱም አቅጣጫዎች እንተረጉማለን — ከአማርኛ ወደ እንግሊዝኛ እና ከእንግሊዝኛ ወደ አማርኛ። ይህ ለኢትዮጵያ ባለስልጣናት ወይም ለኢትዮጵያ ኤምባሲ ማመልከቻዎች የሚላኩ ሰነዶች ሲኖሩ ብዙ ጊዜ ያስፈልጋል።</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-strip" id="contact">
+  <div class="container">
+    <h2>ለመጀመር ዝግጁ ነዎት?</h2>
+    <p>በኦንላይን ያዝዙ ወይም ለፓኬጅ ትዕዛዞች እና ጥያቄዎች በቀጥታ በ WhatsApp ያግኙን።</p>
+    <div class="contact-links">
+      <a href="#pricing" class="contact-btn p">አሁን ያዝዙ</a>
+      <a href="https://wa.me/16395973635" class="contact-btn">💬 WhatsApp +1 (639) 597-3635</a>
+      <a href="mailto:tesfa@nahuai.app" class="contact-btn">✉️ tesfa@nahuai.app</a>
+    </div>
+  </div>
+</section>
+
+<footer><p>© 2026 ናሁ ኤ አይ የትርጉም አገልግሎቶች — ሳስካቱን፣ ሳስካቸዋን፣ ካናዳ &nbsp;·&nbsp; <a href="https://nahuai.app">nahuai.app</a> &nbsp;·&nbsp; <a href="mailto:tesfa@nahuai.app">tesfa@nahuai.app</a></p></footer>
+
+<script>
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+</script>
+</body>
+</html>
