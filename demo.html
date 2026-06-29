@@ -415,12 +415,8 @@ footer a{color:var(--green);text-decoration:none}
 </footer>
 
 <script>
-// ═══════════════════════════════════════════
-// PASTE YOUR ANTHROPIC API KEY ON THE LINE BELOW
-// Get it from: console.anthropic.com/api-keys
-// ═══════════════════════════════════════════
-const ANTHROPIC_KEY = 'sk-ant-api03-tIMOlYmNHrM1qQipr03ysIyhKmg5hJt1tljspJG9hAE3llqm7jFBqhoctJ5eXqO4YBbxqKNjJ2zFBWAVHQiJiMQAA';
-// ═══════════════════════════════════════════
+// API key loaded from sessionStorage (entered by user on first visit)
+let ANTHROPIC_KEY = sessionStorage.getItem('nahu_demo_key') || '';
 
 // ── System prompts per service ────────────────────────────────────────────────
 const SYSTEM = {
@@ -560,6 +556,21 @@ async function sendMsg(service) {
   const btn   = document.getElementById('btn-' + service);
   const text  = input.value.trim();
   if (!text) return;
+
+  // Check for API key
+  if (!ANTHROPIC_KEY) {
+    const key = prompt(
+      'Enter your Anthropic API key to use the demo\n' +
+      '(Get it from console.anthropic.com/api-keys)\n\n' +
+      'Your key stays in your browser only — never sent to our servers.'
+    );
+    if (!key || !key.startsWith('sk-ant-')) {
+      addMsg(service, 'Valid API key required to use the demo. Get yours at console.anthropic.com', 'bot');
+      return;
+    }
+    ANTHROPIC_KEY = key.trim();
+    sessionStorage.setItem('nahu_demo_key', ANTHROPIC_KEY);
+  }
 
   input.value = '';
   btn.disabled = true;
