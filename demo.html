@@ -567,9 +567,18 @@ async function sendMsg(service) {
   showTyping(service);
 
   try {
+    // API key is intentionally in client code for demo purposes only
+    // Replace with your actual Anthropic API key
+    const ANTHROPIC_KEY = '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';
+
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': ANTHROPIC_KEY,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
       body: JSON.stringify({
         model: 'claude-sonnet-4-6',
         max_tokens: 1000,
@@ -581,12 +590,20 @@ async function sendMsg(service) {
     const data = await response.json();
     removeTyping(service);
 
+    if (!response.ok) {
+      console.error('API error response:', data);
+      addMsg(service, 'ይቅርታ — API ስህተት። (API error: ' + (data.error?.message || response.status) + ')', 'bot');
+      btn.disabled = false;
+      return;
+    }
+
     const reply = data.content?.[0]?.text || 'ይቅርታ — ድጋሚ ይሞክሩ። (Sorry, please try again.)';
     addMsg(service, reply, 'bot');
     history[service].push({ role: 'assistant', content: reply });
 
   } catch(e) {
     removeTyping(service);
+    console.error('API error:', e);
     addMsg(service,
       'ይቅርታ — አጭር ዕረፍት ወሰደ። እባክዎ ደግመው ይሞክሩ።\n(Sorry, brief pause. Please try again.)',
       'bot'
