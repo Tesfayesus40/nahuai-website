@@ -3,152 +3,107 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Try Nahu AI live — bilingual Amharic and English AI demos for Ethiopian market intelligence, translation, and chatbot services."/>
 <title>Live Demo — Nahu AI</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#0D0D14;color:#F0EFF8;min-height:100vh;line-height:1.6}
-:root{
-  --green:#2ECC8E;--dark:#0D0D14;--card:#16161F;--border:rgba(255,255,255,.08);
-  --muted:#8B89A8;--white:#F0EFF8;--purple:#6C5CE7;--coral:#E05C5C;
-  --green-dim:rgba(46,204,142,.12);--green-glow:rgba(46,204,142,.25);
-}
-
-/* ── Nav ── */
-nav{background:rgba(13,13,20,.95);backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);padding:14px 32px;
-  display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;z-index:100}
-.nav-brand{font-size:20px;font-weight:700;color:var(--white);text-decoration:none}
+:root{--green:#2ECC8E;--dark:#0D0D14;--card:#16161F;--border:rgba(255,255,255,.08);--muted:#8B89A8}
+nav{background:rgba(13,13,20,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-brand{font-size:18px;font-weight:700;color:#fff;text-decoration:none}
 .nav-brand span{color:var(--green)}
-.nav-links{display:flex;gap:24px;align-items:center}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:14px;transition:color .2s}
-.nav-links a:hover{color:var(--white)}
-.nav-cta{background:var(--green);color:#0D0D14!important;font-weight:600!important;
-  padding:8px 18px;border-radius:8px}
+.nav-links a{color:#8B89A8;text-decoration:none;font-size:14px;margin-left:20px}
+.nav-links a:hover{color:#fff}
 
-/* ── Hero ── */
-.hero{padding:72px 32px 48px;text-align:center;max-width:760px;margin:0 auto}
-.hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:2px;
-  text-transform:uppercase;color:var(--green);margin-bottom:16px}
-.hero h1{font-size:clamp(28px,5vw,48px);font-weight:700;line-height:1.15;
-  margin-bottom:16px;letter-spacing:-1px}
+/* KEY BAR */
+.key-bar{background:rgba(46,204,142,.06);border-bottom:2px solid rgba(46,204,142,.2);padding:12px 32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.key-bar-label{font-size:13px;font-weight:600;color:var(--green);white-space:nowrap}
+.key-bar-input{flex:1;min-width:220px;max-width:500px;background:rgba(255,255,255,.07);border:1.5px solid rgba(46,204,142,.25);border-radius:8px;padding:9px 14px;color:#fff;font-size:13px;font-family:monospace;outline:none;transition:border-color .2s}
+.key-bar-input:focus{border-color:var(--green)}
+.key-bar-input::placeholder{color:var(--muted)}
+.key-save-btn{background:var(--green);color:#0D0D14;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;transition:opacity .2s}
+.key-save-btn:hover{opacity:.85}
+.key-badge{font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;white-space:nowrap}
+.key-badge.ok{background:rgba(46,204,142,.15);color:var(--green)}
+.key-badge.err{background:rgba(224,92,92,.15);color:#E05C5C}
+.key-badge.empty{background:rgba(139,137,168,.1);color:var(--muted)}
+.key-hint{font-size:11px;color:var(--muted);width:100%}
+
+/* HERO */
+.hero{padding:52px 32px 36px;text-align:center;max-width:700px;margin:0 auto}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+.hero h1{font-size:clamp(24px,5vw,42px);font-weight:700;letter-spacing:-1px;margin-bottom:14px;line-height:1.15}
 .hero h1 em{font-style:normal;color:var(--green)}
-.hero p{font-size:16px;color:var(--muted);max-width:560px;margin:0 auto 32px}
+.hero p{font-size:15px;color:var(--muted);max-width:520px;margin:0 auto}
 
-/* ── Service tabs ── */
-.tabs-wrap{max-width:900px;margin:0 auto 0;padding:0 32px}
-.tabs{display:flex;gap:8px;border-bottom:1px solid var(--border);
-  margin-bottom:32px;overflow-x:auto;padding-bottom:0}
-.tab-btn{flex-shrink:0;background:none;border:none;color:var(--muted);
-  font-size:13px;font-weight:500;padding:12px 18px;cursor:pointer;
-  border-bottom:2.5px solid transparent;transition:all .2s;
-  font-family:inherit;display:flex;align-items:center;gap:6px}
-.tab-btn:hover{color:var(--white)}
+/* TABS */
+.tabs-wrap{max-width:920px;margin:0 auto;padding:0 32px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);overflow-x:auto}
+.tab-btn{flex-shrink:0;background:none;border:none;color:var(--muted);font-size:13px;font-weight:500;padding:12px 16px;cursor:pointer;border-bottom:2.5px solid transparent;transition:all .2s;font-family:inherit}
+.tab-btn:hover{color:#fff}
 .tab-btn.active{color:var(--green);border-bottom-color:var(--green)}
-.tab-icon{font-size:16px}
 
-/* ── Chat area ── */
-.demo-wrap{max-width:900px;margin:0 auto;padding:0 32px 80px}
+/* PANEL */
+.demo-wrap{max-width:920px;margin:0 auto;padding:24px 32px 80px}
 .service-panel{display:none}
 .service-panel.active{display:block}
-
-.service-header{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
-.service-info{background:var(--card);border:1px solid var(--border);
-  border-radius:14px;padding:24px}
-.service-info h3{font-size:17px;font-weight:600;color:var(--white);margin-bottom:8px}
-.service-info p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
-.service-tags{display:flex;flex-wrap:wrap;gap:6px}
-.tag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;
-  background:var(--green-dim);color:var(--green);border:1px solid rgba(46,204,142,.2)}
-.service-stats{background:var(--card);border:1px solid var(--border);
-  border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:16px}
-.stat-row{display:flex;justify-content:space-between;align-items:center;
-  padding-bottom:14px;border-bottom:1px solid var(--border)}
+.panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.info-card,.stats-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.info-card h3{font-size:15px;font-weight:600;color:#fff;margin-bottom:8px}
+.info-card p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:rgba(46,204,142,.1);color:var(--green);border:1px solid rgba(46,204,142,.2)}
+.stats-card{display:flex;flex-direction:column;gap:12px}
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--border)}
 .stat-row:last-child{border-bottom:none;padding-bottom:0}
 .stat-label{font-size:12px;color:var(--muted)}
 .stat-val{font-size:13px;font-weight:600;color:var(--green)}
 
-/* ── Chat window ── */
-.chat-window{background:var(--card);border:1px solid var(--border);
-  border-radius:14px;overflow:hidden}
-.chat-header{background:rgba(46,204,142,.08);border-bottom:1px solid var(--border);
-  padding:14px 18px;display:flex;align-items:center;gap:10px}
-.chat-status-dot{width:8px;height:8px;background:var(--green);
-  border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.chat-header-text{font-size:13px;font-weight:500;color:var(--white)}
-.chat-header-sub{font-size:11px;color:var(--muted)}
-.chat-messages{padding:20px;min-height:320px;max-height:400px;
-  overflow-y:auto;display:flex;flex-direction:column;gap:14px}
-.msg{max-width:82%;animation:fadeUp .3s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.msg-user{align-self:flex-end}
-.msg-bot{align-self:flex-start}
-.msg-bubble{padding:12px 16px;border-radius:14px;font-size:14px;line-height:1.6}
-.msg-user .msg-bubble{background:var(--green);color:#0D0D14;
-  border-radius:14px 14px 2px 14px}
-.msg-bot .msg-bubble{background:#1E1E2E;color:var(--white);
-  border-radius:14px 14px 14px 2px;border:1px solid var(--border)}
-.msg-time{font-size:10px;color:var(--muted);margin-top:4px;
-  text-align:right}
-.msg-bot .msg-time{text-align:left}
-.typing-indicator{align-self:flex-start}
-.typing-indicator .msg-bubble{padding:14px 18px}
+/* CHAT */
+.chat-window{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.chat-hdr{background:rgba(46,204,142,.08);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;gap:10px}
+.status-dot{width:8px;height:8px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hdr-title{font-size:13px;font-weight:500;color:#fff}
+.hdr-sub{font-size:11px;color:var(--muted)}
+.chat-msgs{padding:18px;min-height:280px;max-height:360px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:84%;animation:fadeup .25s ease}
+@keyframes fadeup{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.msg.user{align-self:flex-end}
+.msg.bot{align-self:flex-start}
+.bubble{padding:11px 15px;border-radius:12px;font-size:13px;line-height:1.65}
+.msg.user .bubble{background:var(--green);color:#0D0D14;border-radius:12px 12px 2px 12px}
+.msg.bot .bubble{background:#1E1E2E;color:#F0EFF8;border-radius:12px 12px 12px 2px;border:1px solid var(--border)}
+.msg-time{font-size:10px;color:var(--muted);margin-top:3px}
+.msg.user .msg-time{text-align:right}
+.typing .bubble{padding:13px 16px}
 .dots{display:flex;gap:4px}
-.dots span{width:7px;height:7px;background:var(--muted);
-  border-radius:50%;animation:bounce .8s infinite}
+.dots span{width:7px;height:7px;background:var(--muted);border-radius:50%;animation:bounce .8s infinite}
 .dots span:nth-child(2){animation-delay:.15s}
 .dots span:nth-child(3){animation-delay:.3s}
-@keyframes bounce{0%,80%,100%{transform:scale(0.8);opacity:.5}40%{transform:scale(1.1);opacity:1}}
-
-/* ── Suggested questions ── */
-.suggestions{padding:12px 16px;border-top:1px solid var(--border);
-  display:flex;flex-wrap:wrap;gap:6px}
-.suggest-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);
-  color:var(--muted);font-size:12px;padding:6px 12px;border-radius:20px;
-  cursor:pointer;transition:all .2s;font-family:inherit}
-.suggest-btn:hover{background:var(--green-dim);color:var(--green);
-  border-color:rgba(46,204,142,.3)}
-
-/* ── Input bar ── */
-.chat-input-row{padding:14px 16px;border-top:1px solid var(--border);
-  display:flex;gap:10px;align-items:center}
-.chat-input{flex:1;background:rgba(255,255,255,.05);border:1.5px solid var(--border);
-  border-radius:10px;padding:10px 14px;color:var(--white);font-size:14px;
-  font-family:inherit;outline:none;transition:border-color .2s;resize:none}
-.chat-input:focus{border-color:rgba(46,204,142,.4)}
-.chat-input::placeholder{color:var(--muted)}
-.send-btn{background:var(--green);border:none;color:#0D0D14;width:40px;height:40px;
-  border-radius:10px;cursor:pointer;display:flex;align-items:center;
-  justify-content:center;flex-shrink:0;transition:opacity .2s;font-size:18px}
+@keyframes bounce{0%,80%,100%{transform:scale(.8);opacity:.4}40%{transform:scale(1.1);opacity:1}}
+.suggestions{padding:10px 14px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:6px}
+.sug-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted);font-size:11px;padding:5px 11px;border-radius:18px;cursor:pointer;transition:all .2s;font-family:inherit}
+.sug-btn:hover{background:rgba(46,204,142,.1);color:var(--green);border-color:rgba(46,204,142,.25)}
+.input-row{padding:12px 14px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:center}
+.msg-input{flex:1;background:rgba(255,255,255,.05);border:1.5px solid var(--border);border-radius:8px;padding:9px 13px;color:#fff;font-size:13px;font-family:inherit;outline:none;transition:border-color .2s;resize:none}
+.msg-input:focus{border-color:rgba(46,204,142,.4)}
+.msg-input::placeholder{color:var(--muted)}
+.send-btn{background:var(--green);border:none;color:#0D0D14;width:38px;height:38px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .2s;font-size:16px}
 .send-btn:hover{opacity:.85}
-.send-btn:disabled{opacity:.4;cursor:not-allowed}
-
-/* ── Telegram CTA strip ── */
-.tg-strip{margin-top:14px;background:var(--green-dim);border:1px solid rgba(46,204,142,.2);
-  border-radius:10px;padding:12px 16px;display:flex;align-items:center;
-  justify-content:space-between;gap:12px}
-.tg-strip p{font-size:13px;color:var(--muted)}
-.tg-strip p span{color:var(--green);font-weight:500}
-.tg-link{background:var(--green);color:#0D0D14;font-size:13px;font-weight:600;
-  padding:8px 16px;border-radius:8px;text-decoration:none;white-space:nowrap;
-  flex-shrink:0;transition:opacity .2s}
-.tg-link:hover{opacity:.85}
-
-/* ── Footer ── */
-footer{border-top:1px solid var(--border);padding:24px 32px;
-  text-align:center;color:var(--muted);font-size:13px}
+.send-btn:disabled{opacity:.3;cursor:not-allowed}
+.tg-bar{margin-top:12px;background:rgba(46,204,142,.06);border:1px solid rgba(46,204,142,.15);border-radius:10px;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.tg-bar p{font-size:13px;color:var(--muted)}
+.tg-bar p span{color:var(--green);font-weight:500}
+.tg-link{background:var(--green);color:#0D0D14;font-size:13px;font-weight:600;padding:8px 16px;border-radius:8px;text-decoration:none;white-space:nowrap}
+footer{border-top:1px solid var(--border);padding:22px 32px;text-align:center;color:var(--muted);font-size:13px}
 footer a{color:var(--green);text-decoration:none}
-
-@media(max-width:650px){
-  .service-header{grid-template-columns:1fr}
-  .hero{padding:48px 20px 32px}
-  .tabs-wrap,.demo-wrap{padding:0 16px 60px}
+@media(max-width:640px){
+  .panel-grid{grid-template-columns:1fr}
+  .hero,.tabs-wrap,.demo-wrap{padding-left:16px;padding-right:16px}
   nav{padding:12px 16px}
   .nav-links{display:none}
-  .tg-strip{flex-direction:column;align-items:flex-start}
+  .key-bar{padding:10px 16px}
 }
 </style>
 </head>
@@ -160,387 +115,190 @@ footer a{color:var(--green);text-decoration:none}
     <a href="https://nahuai.app">Home</a>
     <a href="translate.html">Translation</a>
     <a href="https://nahuai.app/#contact">Contact</a>
-    <a href="https://nahuai.app" class="nav-cta">Get started</a>
   </div>
 </nav>
 
-<div class="hero">
-  <p class="hero-eyebrow">Live interactive demo</p>
-  <h1>See <em>Amharic AI</em> working right now</h1>
-  <p>Ask anything in Amharic or English. Every response is bilingual — Amharic first, English in parentheses. Built for Ethiopian exporters, universities, banks, and the diaspora.</p>
+<!-- API KEY BAR -->
+<div class="key-bar" id="keyBar">
+  <span class="key-bar-label">Anthropic API key:</span>
+  <input class="key-bar-input" id="keyInput" type="password"
+    placeholder="sk-ant-api03-xxxxxxxxxxxxxxxxxx"
+    oninput="updateKeyStatus()"/>
+  <button class="key-save-btn" onclick="saveKey()">Save key</button>
+  <span class="key-badge empty" id="keyBadge">No key entered</span>
+  <span class="key-hint">Your key stays in your browser only — never sent to our servers. Get yours at console.anthropic.com</span>
 </div>
 
-<!-- Tabs -->
+<div class="hero">
+  <p class="hero-tag">Live interactive demo</p>
+  <h1>See <em>Amharic AI</em> working right now</h1>
+  <p>Ask anything in Amharic or English. Every response is bilingual — Amharic first, English in parentheses.</p>
+</div>
+
 <div class="tabs-wrap">
   <div class="tabs">
-    <button class="tab-btn active" onclick="switchService('market',this)">
-      <span class="tab-icon">📊</span> Market Intelligence
-    </button>
-    <button class="tab-btn" onclick="switchService('translation',this)">
-      <span class="tab-icon">🔤</span> Document Translation
-    </button>
-    <button class="tab-btn" onclick="switchService('university',this)">
-      <span class="tab-icon">🎓</span> University Chatbot
-    </button>
-    <button class="tab-btn" onclick="switchService('bank',this)">
-      <span class="tab-icon">🏦</span> Bank Assistant
-    </button>
+    <button class="tab-btn active" onclick="switchService('market',this)">📊 Market Intelligence</button>
+    <button class="tab-btn" onclick="switchService('translation',this)">🔤 Translation</button>
+    <button class="tab-btn" onclick="switchService('university',this)">🎓 University Bot</button>
+    <button class="tab-btn" onclick="switchService('bank',this)">🏦 Bank Assistant</button>
   </div>
 </div>
 
 <div class="demo-wrap">
 
-  <!-- ── MARKET INTELLIGENCE ── -->
+  <!-- MARKET -->
   <div class="service-panel active" id="panel-market">
-    <div class="service-header">
-      <div class="service-info">
-        <h3>Ethiopian Export Market Intelligence</h3>
-        <p>Daily bilingual market intelligence for Ethiopian exporters — coffee, sesame, leather, flowers, and 8 more products. Real ECX prices in Amharic delivered on Telegram.</p>
-        <div class="service-tags">
-          <span class="tag">Coffee ☕</span><span class="tag">Sesame 🌾</span>
-          <span class="tag">Leather 👜</span><span class="tag">Flowers 🌹</span>
-          <span class="tag">12 products</span><span class="tag">Bilingual</span>
-        </div>
-      </div>
-      <div class="service-stats">
-        <div class="stat-row"><span class="stat-label">Products covered</span><span class="stat-val">12 export categories</span></div>
-        <div class="stat-row"><span class="stat-label">Languages</span><span class="stat-val">Amharic + English</span></div>
-        <div class="stat-row"><span class="stat-label">Price data</span><span class="stat-val">ECX daily prices</span></div>
-        <div class="stat-row"><span class="stat-label">Delivery</span><span class="stat-val">Telegram + Web</span></div>
-      </div>
+    <div class="panel-grid">
+      <div class="info-card"><h3>Ethiopian Export Market Intelligence</h3><p>Daily bilingual market intelligence for Ethiopian exporters — coffee, sesame, leather, flowers, and 8 more products. Real ECX prices in Amharic delivered on Telegram.</p><div class="tags"><span class="tag">Coffee</span><span class="tag">Sesame</span><span class="tag">Leather</span><span class="tag">Flowers</span><span class="tag">12 products</span><span class="tag">ECX prices</span></div></div>
+      <div class="stats-card"><div class="stat-row"><span class="stat-label">Products covered</span><span class="stat-val">12 export categories</span></div><div class="stat-row"><span class="stat-label">Languages</span><span class="stat-val">Amharic + English</span></div><div class="stat-row"><span class="stat-label">Price data</span><span class="stat-val">ECX daily prices</span></div><div class="stat-row"><span class="stat-label">Delivery</span><span class="stat-val">Telegram + Web</span></div></div>
     </div>
-
     <div class="chat-window">
-      <div class="chat-header">
-        <div class="chat-status-dot"></div>
-        <div>
-          <div class="chat-header-text">Nahu Market Intelligence</div>
-          <div class="chat-header-sub">ናሁ ኤ አይ — የገበያ መረጃ አገልግሎት</div>
-        </div>
-      </div>
-      <div class="chat-messages" id="msgs-market">
-        <div class="msg msg-bot">
-          <div class="msg-bubble">🌿 <strong>እንኳን ደህና መጡ — ናሁ ኤ አይ!</strong> (Welcome to Nahu AI!)<br/><br/>
-          ለቡና፣ ሰሊጥ፣ ቆዳ፣ አበባ እና ሌሎች 8 ምርቶች የዓለም አቀፍ ገበያ መረጃ ይጠይቁ።<br/>
-          (Ask about international market prices for coffee, sesame, leather, flowers, and 8 more products.)</div>
-          <div class="msg-time">ናሁ ኤ አይ</div>
-        </div>
-      </div>
+      <div class="chat-hdr"><div class="status-dot"></div><div><div class="hdr-title">Nahu Market Intelligence</div><div class="hdr-sub">ናሁ ኤ አይ — የገበያ መረጃ አገልግሎት</div></div></div>
+      <div class="chat-msgs" id="msgs-market"><div class="msg bot"><div class="bubble">🌿 <strong>እንኳን ደህና መጡ!</strong> (Welcome!)<br/>ለቡና፣ ሰሊጥ፣ ቆዳ እና ሌሎች ምርቶች ዋጋ ይጠይቁ።<br/><span style="color:var(--muted);font-size:12px">(Ask about coffee, sesame, leather prices and more.)</span></div><div class="msg-time">Nahu AI</div></div></div>
       <div class="suggestions" id="sugg-market">
-        <button class="suggest-btn" onclick="sendSuggestion('market','What is the coffee price today?')">☕ Coffee price today</button>
-        <button class="suggest-btn" onclick="sendSuggestion('market','የሰሊጥ ዋጋ ምን ያህል ነው?')">🌾 የሰሊጥ ዋጋ</button>
-        <button class="suggest-btn" onclick="sendSuggestion('market','How do I export leather to Italy?')">👜 Export leather to Italy</button>
-        <button class="suggest-btn" onclick="sendSuggestion('market','ዬርጋቸፌ ቡና ዋጋ ምን ያህል ነው?')">🌿 ዬርጋቸፌ ቡና</button>
+        <button class="sug-btn" onclick="sendSugg('market','What is the coffee price today?')">☕ Coffee price today</button>
+        <button class="sug-btn" onclick="sendSugg('market','የሰሊጥ ዋጋ ምን ያህል ነው?')">🌾 የሰሊጥ ዋጋ</button>
+        <button class="sug-btn" onclick="sendSugg('market','How do I export leather to Italy?')">👜 Export leather</button>
+        <button class="sug-btn" onclick="sendSugg('market','ዬርጋቸፌ ቡና ዋጋ?')">🌿 ዬርጋቸፌ ቡና</button>
       </div>
-      <div class="chat-input-row">
-        <textarea class="chat-input" id="input-market" placeholder="Ask in Amharic or English — ጥያቄ ይጠይቁ..." rows="1"
-          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg('market')}"></textarea>
-        <button class="send-btn" id="btn-market" onclick="sendMsg('market')">➤</button>
-      </div>
+      <div class="input-row"><textarea class="msg-input" id="input-market" placeholder="Ask in Amharic or English — ጥያቄ ይጠይቁ..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg('market')}"></textarea><button class="send-btn" id="btn-market" onclick="sendMsg('market')">➤</button></div>
     </div>
-    <div class="tg-strip">
-      <p>Get <span>daily price updates</span> and ask questions on Telegram — where Ethiopian exporters already are.</p>
-      <a class="tg-link" href="https://t.me/NahuMarketBot" target="_blank">📱 Open in Telegram →</a>
-    </div>
+    <div class="tg-bar"><p>Get <span>daily price updates</span> on Telegram — where Ethiopian exporters already are.</p><a class="tg-link" href="https://t.me/NahuMarketBot" target="_blank">Open in Telegram →</a></div>
   </div>
 
-  <!-- ── TRANSLATION ── -->
+  <!-- TRANSLATION -->
   <div class="service-panel" id="panel-translation">
-    <div class="service-header">
-      <div class="service-info">
-        <h3>Professional Amharic Document Translation</h3>
-        <p>Amharic ↔ English translation of official documents for immigration, university, and government applications. Served by native Amharic speakers. Starting at $35 CAD.</p>
-        <div class="service-tags">
-          <span class="tag">Birth certificates</span><span class="tag">Diplomas</span>
-          <span class="tag">Police clearance</span><span class="tag">$35 CAD</span>
-          <span class="tag">3–5 days</span>
-        </div>
-      </div>
-      <div class="service-stats">
-        <div class="stat-row"><span class="stat-label">Standard</span><span class="stat-val">$35 CAD — 3–5 days</span></div>
-        <div class="stat-row"><span class="stat-label">Expedited</span><span class="stat-val">$55 CAD — 48 hours</span></div>
-        <div class="stat-row"><span class="stat-label">Urgent</span><span class="stat-val">$80 CAD — 24 hours</span></div>
-        <div class="stat-row"><span class="stat-label">Coverage</span><span class="stat-val">Saskatoon + all Canada</span></div>
-      </div>
+    <div class="panel-grid">
+      <div class="info-card"><h3>Professional Amharic Document Translation</h3><p>Amharic ↔ English translation for immigration, university, and government applications. Served by native Amharic speakers. Starting at $35 CAD.</p><div class="tags"><span class="tag">Birth certificates</span><span class="tag">Diplomas</span><span class="tag">Police clearance</span><span class="tag">$35 CAD</span><span class="tag">3–5 days</span></div></div>
+      <div class="stats-card"><div class="stat-row"><span class="stat-label">Standard</span><span class="stat-val">$35 CAD — 3–5 days</span></div><div class="stat-row"><span class="stat-label">Expedited</span><span class="stat-val">$55 CAD — 48 hours</span></div><div class="stat-row"><span class="stat-label">Urgent</span><span class="stat-val">$80 CAD — 24 hours</span></div><div class="stat-row"><span class="stat-label">Coverage</span><span class="stat-val">Saskatoon + all Canada</span></div></div>
     </div>
-
     <div class="chat-window">
-      <div class="chat-header">
-        <div class="chat-status-dot"></div>
-        <div>
-          <div class="chat-header-text">Nahu AI Translation Assistant</div>
-          <div class="chat-header-sub">የትርጉም አገልግሎት ጥያቄዎች</div>
-        </div>
-      </div>
-      <div class="chat-messages" id="msgs-translation">
-        <div class="msg msg-bot">
-          <div class="msg-bubble">🔤 <strong>ናሁ ኤ አይ — ሙያዊ ሰነድ ትርጉም</strong> (Nahu AI — Professional Document Translation)<br/><br/>
-          ስለ ትርጉም አገልግሎታችን ጥያቄ ይጠይቁ — ዋጋ፣ ሂደት፣ ወይም ምን ሰነዶች እንደምንተረጉም።<br/>
-          (Ask about our translation service — pricing, process, or which documents we translate.)</div>
-          <div class="msg-time">ናሁ ኤ አይ</div>
-        </div>
-      </div>
+      <div class="chat-hdr"><div class="status-dot"></div><div><div class="hdr-title">Nahu AI Translation Assistant</div><div class="hdr-sub">የትርጉም አገልግሎት ጥያቄዎች</div></div></div>
+      <div class="chat-msgs" id="msgs-translation"><div class="msg bot"><div class="bubble">🔤 <strong>ናሁ ኤ አይ — ሙያዊ ሰነድ ትርጉም</strong><br/>ስለ ዋጋ፣ ሂደት ወይም ሰነዶቻችን ጥያቄ ይጠይቁ።<br/><span style="color:var(--muted);font-size:12px">(Ask about pricing, process, or which documents we translate.)</span></div><div class="msg-time">Nahu AI</div></div></div>
       <div class="suggestions" id="sugg-translation">
-        <button class="suggest-btn" onclick="sendSuggestion('translation','How much does it cost to translate a birth certificate?')">💰 Translation cost</button>
-        <button class="suggest-btn" onclick="sendSuggestion('translation','የልደት ምስክርነት ትርጉም ምን ያህል ቀን ይፈጃል?')">📅 ምን ያህል ቀን</button>
-        <button class="suggest-btn" onclick="sendSuggestion('translation','Will IRCC accept your translation?')">✅ IRCC acceptance</button>
-        <button class="suggest-btn" onclick="sendSuggestion('translation','ዲፕሎማ ለመተርጎም ምን ያስፈልጋል?')">🎓 ዲፕሎማ ትርጉም</button>
+        <button class="sug-btn" onclick="sendSugg('translation','How much does it cost to translate a birth certificate?')">💰 Translation cost</button>
+        <button class="sug-btn" onclick="sendSugg('translation','ምን ያህል ቀን ይፈጃል?')">📅 ምን ያህል ቀን</button>
+        <button class="sug-btn" onclick="sendSugg('translation','Will IRCC accept your translation?')">✅ IRCC acceptance</button>
+        <button class="sug-btn" onclick="sendSugg('translation','ዲፕሎማ ለመተርጎም ምን ያስፈልጋል?')">🎓 ዲፕሎማ ትርጉም</button>
       </div>
-      <div class="chat-input-row">
-        <textarea class="chat-input" id="input-translation" placeholder="Ask about translation — ስለ ትርጉም ይጠይቁ..." rows="1"
-          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg('translation')}"></textarea>
-        <button class="send-btn" id="btn-translation" onclick="sendMsg('translation')">➤</button>
-      </div>
+      <div class="input-row"><textarea class="msg-input" id="input-translation" placeholder="Ask about translation — ስለ ትርጉም ይጠይቁ..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg('translation')}"></textarea><button class="send-btn" id="btn-translation" onclick="sendMsg('translation')">➤</button></div>
     </div>
-    <div class="tg-strip">
-      <p>Ready to order? Place your order online — <span>documents delivered by email.</span></p>
-      <a class="tg-link" href="translate.html" target="_blank">📄 Order translation →</a>
-    </div>
+    <div class="tg-bar"><p>Ready to order? <span>Documents delivered by email.</span></p><a class="tg-link" href="translate.html" target="_blank">Order translation →</a></div>
   </div>
 
-  <!-- ── UNIVERSITY ── -->
+  <!-- UNIVERSITY -->
   <div class="service-panel" id="panel-university">
-    <div class="service-header">
-      <div class="service-info">
-        <h3>Amharic University Chatbot</h3>
-        <p>Custom AI chatbot for Ethiopian universities — answers student FAQs about admissions, fees, exam schedules, and campus services. Bilingual Amharic and English. Deployed on Telegram and WhatsApp.</p>
-        <div class="service-tags">
-          <span class="tag">Admissions</span><span class="tag">Exam schedules</span>
-          <span class="tag">Fee payment</span><span class="tag">Telegram + WhatsApp</span>
-          <span class="tag">24/7 available</span>
-        </div>
-      </div>
-      <div class="service-stats">
-        <div class="stat-row"><span class="stat-label">Starter package</span><span class="stat-val">$2,000–5,000</span></div>
-        <div class="stat-row"><span class="stat-label">Business package</span><span class="stat-val">$5,000–15,000</span></div>
-        <div class="stat-row"><span class="stat-label">Setup time</span><span class="stat-val">2–4 weeks</span></div>
-        <div class="stat-row"><span class="stat-label">Target clients</span><span class="stat-val">Private universities</span></div>
-      </div>
+    <div class="panel-grid">
+      <div class="info-card"><h3>Amharic University Chatbot</h3><p>Custom AI chatbot for Ethiopian universities — answers student FAQs about admissions, fees, exam schedules, and campus services. Bilingual. Deployed on Telegram and WhatsApp.</p><div class="tags"><span class="tag">Admissions</span><span class="tag">Exam schedules</span><span class="tag">Fee payment</span><span class="tag">Telegram</span><span class="tag">24/7</span></div></div>
+      <div class="stats-card"><div class="stat-row"><span class="stat-label">Starter package</span><span class="stat-val">$2,000–5,000</span></div><div class="stat-row"><span class="stat-label">Business package</span><span class="stat-val">$5,000–15,000</span></div><div class="stat-row"><span class="stat-label">Setup time</span><span class="stat-val">2–4 weeks</span></div><div class="stat-row"><span class="stat-label">Target clients</span><span class="stat-val">Private universities</span></div></div>
     </div>
-
     <div class="chat-window">
-      <div class="chat-header">
-        <div class="chat-status-dot"></div>
-        <div>
-          <div class="chat-header-text">University Bot Demo — Admas University</div>
-          <div class="chat-header-sub">አድማስ ዩኒቨርሲቲ — AI ረዳት</div>
-        </div>
-      </div>
-      <div class="chat-messages" id="msgs-university">
-        <div class="msg msg-bot">
-          <div class="msg-bubble">🎓 <strong>እንኳን ደህና መጡ — አድማስ ዩኒቨርሲቲ AI ረዳት!</strong><br/>
-          (Welcome to Admas University AI Assistant!)<br/><br/>
-          ስለ ትምህርት ምዝገባ፣ ክፍያ፣ ፈተናዎች ወይም ሌሎች ጥያቄዎች ይጠይቁ።<br/>
-          (Ask about admissions, fees, exams, or other university questions.)</div>
-          <div class="msg-time">Admas University Bot</div>
-        </div>
-      </div>
+      <div class="chat-hdr"><div class="status-dot"></div><div><div class="hdr-title">University Bot Demo — Admas University</div><div class="hdr-sub">አድማስ ዩኒቨርሲቲ — AI ረዳት</div></div></div>
+      <div class="chat-msgs" id="msgs-university"><div class="msg bot"><div class="bubble">🎓 <strong>እንኳን ደህና መጡ — አድማስ ዩኒቨርሲቲ AI ረዳት!</strong><br/>ስለ ምዝገባ፣ ክፍያ ወይም ፈተናዎች ይጠይቁ።<br/><span style="color:var(--muted);font-size:12px">(Ask about admissions, fees, or exam schedules.)</span></div><div class="msg-time">Admas University Bot</div></div></div>
       <div class="suggestions" id="sugg-university">
-        <button class="suggest-btn" onclick="sendSuggestion('university','What are the admission requirements for computer science?')">📋 Admission requirements</button>
-        <button class="suggest-btn" onclick="sendSuggestion('university','የትምህርት ክፍያ ምን ያህል ነው?')">💰 የትምህርት ክፍያ</button>
-        <button class="suggest-btn" onclick="sendSuggestion('university','When are the semester exams?')">📅 Exam schedule</button>
-        <button class="suggest-btn" onclick="sendSuggestion('university','ምዝገባ እንዴት ይደረጋል?')">✍️ ምዝገባ ሂደት</button>
+        <button class="sug-btn" onclick="sendSugg('university','What are the admission requirements for computer science?')">📋 Admission requirements</button>
+        <button class="sug-btn" onclick="sendSugg('university','የትምህርት ክፍያ ምን ያህል ነው?')">💰 የትምህርት ክፍያ</button>
+        <button class="sug-btn" onclick="sendSugg('university','When are the semester exams?')">📅 Exam schedule</button>
+        <button class="sug-btn" onclick="sendSugg('university','ምዝገባ እንዴት ይደረጋል?')">✍️ ምዝገባ ሂደት</button>
       </div>
-      <div class="chat-input-row">
-        <textarea class="chat-input" id="input-university" placeholder="Ask as a student — እንደ ተማሪ ይጠይቁ..." rows="1"
-          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg('university')}"></textarea>
-        <button class="send-btn" id="btn-university" onclick="sendMsg('university')">➤</button>
-      </div>
+      <div class="input-row"><textarea class="msg-input" id="input-university" placeholder="Ask as a student — እንደ ተማሪ ይጠይቁ..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg('university')}"></textarea><button class="send-btn" id="btn-university" onclick="sendMsg('university')">➤</button></div>
     </div>
-    <div class="tg-strip">
-      <p>Want this chatbot for your university? <span>We build and deploy in 2–4 weeks.</span></p>
-      <a class="tg-link" href="https://nahuai.app/#contact" target="_blank">📞 Get a quote →</a>
-    </div>
+    <div class="tg-bar"><p>Want this chatbot for your university? <span>We build and deploy in 2–4 weeks.</span></p><a class="tg-link" href="https://nahuai.app/#contact" target="_blank">Get a quote →</a></div>
   </div>
 
-  <!-- ── BANK ── -->
+  <!-- BANK -->
   <div class="service-panel" id="panel-bank">
-    <div class="service-header">
-      <div class="service-info">
-        <h3>Amharic Bank Customer Assistant</h3>
-        <p>AI assistant for Ethiopian banks — handles customer inquiries about account services, loan products, interest rates, branch locations, and USSD codes. Fully bilingual, deployed on Telegram.</p>
-        <div class="service-tags">
-          <span class="tag">Account services</span><span class="tag">Loan products</span>
-          <span class="tag">Interest rates</span><span class="tag">USSD codes</span>
-          <span class="tag">24/7 support</span>
-        </div>
-      </div>
-      <div class="service-stats">
-        <div class="stat-row"><span class="stat-label">Enterprise package</span><span class="stat-val">$15,000–50,000</span></div>
-        <div class="stat-row"><span class="stat-label">Monthly retainer</span><span class="stat-val">From $500/month</span></div>
-        <div class="stat-row"><span class="stat-label">Integration</span><span class="stat-val">Core banking API</span></div>
-        <div class="stat-row"><span class="stat-label">Target clients</span><span class="stat-val">Awash, Dashen, Amhara</span></div>
-      </div>
+    <div class="panel-grid">
+      <div class="info-card"><h3>Amharic Bank Customer Assistant</h3><p>AI assistant for Ethiopian banks — accounts, loans, interest rates, USSD codes. Fully bilingual, deployed on Telegram.</p><div class="tags"><span class="tag">Account services</span><span class="tag">Loan products</span><span class="tag">Interest rates</span><span class="tag">USSD codes</span><span class="tag">24/7</span></div></div>
+      <div class="stats-card"><div class="stat-row"><span class="stat-label">Enterprise package</span><span class="stat-val">$15,000–50,000</span></div><div class="stat-row"><span class="stat-label">Monthly retainer</span><span class="stat-val">From $500/month</span></div><div class="stat-row"><span class="stat-label">Integration</span><span class="stat-val">Core banking API</span></div><div class="stat-row"><span class="stat-label">Target clients</span><span class="stat-val">Awash, Dashen, Amhara</span></div></div>
     </div>
-
     <div class="chat-window">
-      <div class="chat-header">
-        <div class="chat-status-dot"></div>
-        <div>
-          <div class="chat-header-text">Bank Assistant Demo — Awash Bank</div>
-          <div class="chat-header-sub">አዋሽ ባንክ — AI የደንበኞች አገልግሎት</div>
-        </div>
-      </div>
-      <div class="chat-messages" id="msgs-bank">
-        <div class="msg msg-bot">
-          <div class="msg-bubble">🏦 <strong>ሰላም! እንኳን ደህና መጡ — አዋሽ ባንክ AI አገልግሎት!</strong><br/>
-          (Hello! Welcome to Awash Bank AI Service!)<br/><br/>
-          ስለ ሂሳብ፣ ብድር፣ ወለድ ምጣኔ ወይም ሌሎች ጥያቄዎች ይጠይቁ።<br/>
-          (Ask about accounts, loans, interest rates, or other banking questions.)</div>
-          <div class="msg-time">Awash Bank Bot</div>
-        </div>
-      </div>
+      <div class="chat-hdr"><div class="status-dot"></div><div><div class="hdr-title">Bank Assistant Demo — Awash Bank</div><div class="hdr-sub">አዋሽ ባንክ — AI የደንበኞች አገልግሎት</div></div></div>
+      <div class="chat-msgs" id="msgs-bank"><div class="msg bot"><div class="bubble">🏦 <strong>ሰላም! — አዋሽ ባንክ AI አገልግሎት!</strong><br/>ስለ ሂሳብ፣ ብድር ወይም ሌሎች ጥያቄዎች ይጠይቁ።<br/><span style="color:var(--muted);font-size:12px">(Ask about accounts, loans, or other banking questions.)</span></div><div class="msg-time">Awash Bank Bot</div></div></div>
       <div class="suggestions" id="sugg-bank">
-        <button class="suggest-btn" onclick="sendSuggestion('bank','What documents do I need to open a savings account?')">🏦 Open account</button>
-        <button class="suggest-btn" onclick="sendSuggestion('bank','የብድር ወለድ ምጣኔ ምን ያህል ነው?')">💳 የብድር ወለድ</button>
-        <button class="suggest-btn" onclick="sendSuggestion('bank','How do I send money to another bank?')">💸 Money transfer</button>
-        <button class="suggest-btn" onclick="sendSuggestion('bank','USSD ኮዱ ምን ያህል ነው?')">📱 USSD ኮድ</button>
+        <button class="sug-btn" onclick="sendSugg('bank','What documents do I need to open a savings account?')">🏦 Open account</button>
+        <button class="sug-btn" onclick="sendSugg('bank','የብድር ወለድ ምጣኔ ምን ያህል ነው?')">💳 የብድር ወለድ</button>
+        <button class="sug-btn" onclick="sendSugg('bank','How do I send money to another bank?')">💸 Money transfer</button>
+        <button class="sug-btn" onclick="sendSugg('bank','USSD ኮዱ ምን ነው?')">📱 USSD ኮድ</button>
       </div>
-      <div class="chat-input-row">
-        <textarea class="chat-input" id="input-bank" placeholder="Ask as a bank customer — እንደ ደንበኛ ይጠይቁ..." rows="1"
-          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg('bank')}"></textarea>
-        <button class="send-btn" id="btn-bank" onclick="sendMsg('bank')">➤</button>
-      </div>
+      <div class="input-row"><textarea class="msg-input" id="input-bank" placeholder="Ask as a bank customer — እንደ ደንበኛ ይጠይቁ..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg('bank')}"></textarea><button class="send-btn" id="btn-bank" onclick="sendMsg('bank')">➤</button></div>
     </div>
-    <div class="tg-strip">
-      <p>Want this for your bank? <span>We build, integrate, and maintain the full system.</span></p>
-      <a class="tg-link" href="https://nahuai.app/#contact" target="_blank">📞 Request a demo →</a>
-    </div>
+    <div class="tg-bar"><p>Want this for your bank? <span>We build, integrate, and maintain the full system.</span></p><a class="tg-link" href="https://nahuai.app/#contact" target="_blank">Request a demo →</a></div>
   </div>
 
 </div>
 
-<footer>
-  <p>© 2026 Nahu AI — <a href="https://nahuai.app">nahuai.app</a> · <a href="mailto:tesfa@nahuai.app">tesfa@nahuai.app</a> · <a href="translate.html">Translation</a> · <a href="privacy.html">Privacy</a></p>
-</footer>
+<footer><p>© 2026 Nahu AI — <a href="https://nahuai.app">nahuai.app</a> · <a href="mailto:tesfa@nahuai.app">tesfa@nahuai.app</a> · <a href="translate.html">Translation</a> · <a href="privacy.html">Privacy</a></p></footer>
 
 <script>
-// API key loaded from sessionStorage (entered by user on first visit)
-let ANTHROPIC_KEY = sessionStorage.getItem('nahu_demo_key') || '';
-
-// ── System prompts per service ────────────────────────────────────────────────
 const SYSTEM = {
-  market: `You are the Nahu AI Market Intelligence assistant for Ethiopian exporters.
-You ONLY respond in Amharic and English. Never use any other language.
-RESPONSE FORMAT — always bilingual:
-• Write each point in Amharic first
-• Immediately follow with English translation in (parentheses)
-• 3–5 bullet points maximum
-• Include realistic market prices and numbers where relevant
-• Use these realistic current ECX prices:
-  Coffee Local Washed avg: 12,490 Birr/Feresulla
-  Coffee Yirgacheffe: 14,091 Birr/Feresulla
-  Coffee Jimma: 12,675 Birr/Feresulla
-  Sesame Humera Gondar: 17,749 Birr/Quintal
-  Sesame Wollega: 15,500 Birr/Quintal
-  White Pea Bean: 11,400 Birr/Quintal
-  Cardamom: 18.50 USD/kg
-  Honey white: 8.50 USD/kg
-  Leather wet blue cattle: 0.85 USD/sqft
-  Avocado Hass: 1.80 USD/kg
-• End with one practical recommendation
-Sign off as: ናሁ ኤ አይ — nahuai.app (Nahu AI — nahuai.app)`,
-
-  translation: `You are the Nahu AI Translation Service assistant.
-You ONLY respond in Amharic and English. Never use any other language.
-You answer questions about Nahu AI's professional Amharic document translation service.
-Key facts:
-- Standard: $35 CAD per document, 3-5 business days
-- Expedited: $55 CAD, 48 hours  
-- Urgent: $80 CAD, 24 hours
-- Family bundle 5 docs: $150 CAD
-- Professional bundle 8 docs: $220 CAD
-- Notarized add-on: +$25 CAD
-- Documents: birth cert, marriage cert, divorce decree, death cert, diploma, transcript, police clearance, employment letter, bank statement, work experience cert, kebele/national ID, adoption papers
-- Acceptance: depends on institution requirements — clients should verify before ordering. We do not guarantee IRCC acceptance.
-- Translator: native Amharic speaker with attestation statement
-- Service: Saskatoon Canada, serves all Canada remotely
-- Website: nahuai.app/translate
-- WhatsApp: +1 (639) 597-3635
-RESPONSE FORMAT:
-• Amharic first, English in (parentheses)
-• Direct and helpful
-• 2-4 points maximum
-Sign off as: ናሁ ኤ አይ — nahuai.app/translate`,
-
-  university: `You are an AI assistant for Admas University in Addis Ababa, Ethiopia.
-This is a DEMO showing what a university chatbot built by Nahu AI can do.
-You ONLY respond in Amharic and English. Never use any other language.
-Simulate realistic university FAQ responses about:
-- Admissions: entrance exam requirement, application process, required documents
-- Fees: undergraduate ~35,000-45,000 ETB/year depending on program, payment in installments possible
-- Programs: Business, IT, Engineering, Law, Health Sciences
-- Academic calendar: semester 1 starts September, semester 2 starts February
-- Exam schedules: announced 3 weeks before on notice boards and Telegram channel
-- Campus: main campus Addis Ababa, satellite campuses in other cities
-- Contact: info@admasuniversity.edu.et, +251 11 667 xxxx
-RESPONSE FORMAT:
-• Amharic first, English in (parentheses)  
-• Helpful and student-friendly tone
-• End with: ናሁ ኤ አይ ቴክኖሎጂ (Powered by Nahu AI)
-Note: Always clarify this is a demo and that Nahu AI builds these bots for universities.`,
-
-  bank: `You are an AI assistant for Awash Bank in Ethiopia.
-This is a DEMO showing what a bank chatbot built by Nahu AI can do.
-You ONLY respond in Amharic and English. Never use any other language.
-Simulate realistic bank FAQ responses about:
-- Account opening: ID card, photo, initial deposit 500 ETB minimum for savings
-- Account types: savings, current, fixed deposit, youth account
-- Loan products: personal loan, business loan, mortgage, agriculture loan
-- Interest rates: savings 7-9%, loans 14-18% (realistic Ethiopian bank rates)
-- USSD: *805# for Awash mobile banking
-- Mobile banking: Awash Mobile app for Android and iOS
-- Transfers: can transfer to other banks via EthSwitch
-- Branch locations: 600+ branches across Ethiopia
-- Working hours: Monday-Friday 8AM-5PM, Saturday 8AM-12PM
-RESPONSE FORMAT:
-• Amharic first, English in (parentheses)
-• Professional and trustworthy tone
-• End with: ናሁ ኤ አይ ቴክኖሎጂ (Powered by Nahu AI)
-Note: Always clarify this is a demo. Nahu AI builds these chatbots for Ethiopian banks.`
+  market: `You are Nahu AI Market Intelligence for Ethiopian exporters. ONLY respond in Amharic and English — never any other language. Format every response: Amharic first, English translation in (parentheses) immediately after each point. Use 3-5 bullet points. Use these real ECX prices: Coffee Local Washed avg 12490 Birr/Feresulla, Yirgacheffe 14091, Jimma 12675, Sidama 13525, Local Unwashed avg 10153. Sesame Humera Gondar 17749 Birr/Quintal, Wollega 15500. White Pea Bean 11400. Brown Chickpea 3900. International: Coffee London ICE $3820/tonne, NY Arabica $2.18/lb. Leather wet blue cattle $0.85/sqft, finished upper $2.80/sqft. Cardamom $18.50/kg. Honey white $8.50/kg. Avocado Hass $1.80/kg. End with: ናሁ ኤ አይ — nahuai.app`,
+  translation: `You are Nahu AI Translation Service assistant. ONLY Amharic and English. Answer questions about our professional Amharic document translation service. Facts: Standard $35 CAD 3-5 business days, Expedited $55 CAD 48 hours, Urgent $80 CAD 24 hours. Family bundle 5 docs $150 CAD, Professional bundle 8 docs $220 CAD. Notarized add-on +$25 CAD. Documents we translate: birth cert, marriage cert, divorce decree, death cert, educational diploma, academic transcript, police clearance, employment letter, bank statement, adoption papers, kebele/national ID, work experience cert. Important: acceptance depends on institution requirements — clients must verify before ordering. We do not guarantee IRCC acceptance. Website: nahuai.app/translate. Format: Amharic first, English in (parentheses). 2-4 points.`,
+  university: `You are an AI assistant for Admas University Addis Ababa, Ethiopia. This is a DEMO showing what a university chatbot built by Nahu AI can do. ONLY Amharic and English. Simulate realistic university FAQ: fees 35000-45000 ETB per year depending on program, entrance exam required, programs include Business Administration, IT, Engineering, Law, Health Sciences, Education. Semester 1 starts September, semester 2 February. Exams announced 3 weeks before. Contact info@admasuniversity.edu.et. Always mention this is a Nahu AI demo bot. Format: Amharic first, English in (parentheses). End responses with: ናሁ ኤ አይ ቴክኖሎጂ (Powered by Nahu AI)`,
+  bank: `You are an AI assistant for Awash Bank Ethiopia. This is a DEMO showing what a bank chatbot built by Nahu AI can do. ONLY Amharic and English. Simulate realistic bank FAQ: savings account min deposit 500 ETB, ID required, savings interest 7-9%, loan interest 14-18%, USSD code *805#, Awash Mobile app on iOS and Android, transfers to other banks via EthSwitch, 600+ branches nationwide. Always mention this is a Nahu AI demo bot. Format: Amharic first, English in (parentheses). End responses with: ናሁ ኤ አይ ቴክኖሎጂ (Powered by Nahu AI)`
 };
 
-// ── State ─────────────────────────────────────────────────────────────────────
 const history = { market:[], translation:[], university:[], bank:[] };
-let currentService = 'market';
+let ANTHROPIC_KEY = sessionStorage.getItem('nahu_key') || '';
 
-// ── Switch service tab ────────────────────────────────────────────────────────
+window.onload = function() {
+  if (ANTHROPIC_KEY) {
+    document.getElementById('keyInput').value = ANTHROPIC_KEY;
+    updateKeyStatus();
+  }
+};
+
+function updateKeyStatus() {
+  const k = document.getElementById('keyInput').value.trim();
+  const badge = document.getElementById('keyBadge');
+  if (!k) { badge.className='key-badge empty'; badge.textContent='No key entered'; }
+  else if (k.startsWith('sk-ant-')) { badge.className='key-badge ok'; badge.textContent='✓ Key looks valid'; }
+  else { badge.className='key-badge err'; badge.textContent='✗ Should start with sk-ant-'; }
+}
+
+function saveKey() {
+  const k = document.getElementById('keyInput').value.trim();
+  if (!k) { alert('Please enter your API key first.'); return; }
+  if (!k.startsWith('sk-ant-')) { alert('API key should start with sk-ant-
+
+Get your key from console.anthropic.com'); return; }
+  ANTHROPIC_KEY = k;
+  sessionStorage.setItem('nahu_key', k);
+  updateKeyStatus();
+  const btn = document.querySelector('.key-save-btn');
+  btn.textContent = '✓ Saved';
+  btn.style.background = '#1D9E75';
+  setTimeout(() => { btn.textContent = 'Save key'; btn.style.background = ''; }, 2000);
+}
+
 function switchService(id, btn) {
   document.querySelectorAll('.service-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('panel-' + id).classList.add('active');
   btn.classList.add('active');
-  currentService = id;
 }
 
-// ── Send suggestion ───────────────────────────────────────────────────────────
-function sendSuggestion(service, text) {
-  const input = document.getElementById('input-' + service);
-  input.value = text;
+function sendSugg(service, text) {
+  document.getElementById('input-' + service).value = text;
   sendMsg(service);
 }
 
-// ── Add message bubble ────────────────────────────────────────────────────────
 function addMsg(service, text, role) {
   const container = document.getElementById('msgs-' + service);
   const div = document.createElement('div');
-  div.className = `msg msg-${role === 'user' ? 'user' : 'bot'}`;
+  div.className = 'msg ' + (role === 'user' ? 'user' : 'bot');
   const now = new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-  div.innerHTML = `
-    <div class="msg-bubble">${text.replace(/\n/g,'<br/>')}</div>
-    <div class="msg-time">${role === 'user' ? 'You' : 'Nahu AI'} · ${now}</div>`;
+  div.innerHTML = '<div class="bubble">' + text.replace(/\n/g,'<br/>') + '</div><div class="msg-time">' + (role === 'user' ? 'You' : 'Nahu AI') + ' · ' + now + '</div>';
   container.appendChild(div);
   container.scrollTop = container.scrollHeight;
-  return div;
 }
 
-// ── Typing indicator ──────────────────────────────────────────────────────────
 function showTyping(service) {
   const container = document.getElementById('msgs-' + service);
   const div = document.createElement('div');
-  div.className = 'msg msg-bot typing-indicator';
+  div.className = 'msg bot typing';
   div.id = 'typing-' + service;
-  div.innerHTML = `<div class="msg-bubble"><div class="dots"><span></span><span></span><span></span></div></div>`;
+  div.innerHTML = '<div class="bubble"><div class="dots"><span></span><span></span><span></span></div></div>';
   container.appendChild(div);
   container.scrollTop = container.scrollHeight;
 }
@@ -550,49 +308,34 @@ function removeTyping(service) {
   if (el) el.remove();
 }
 
-// ── Main send function ────────────────────────────────────────────────────────
 async function sendMsg(service) {
-  const input = document.getElementById('input-' + service);
-  const btn   = document.getElementById('btn-' + service);
-  const text  = input.value.trim();
-  if (!text) return;
-
-  // Check for API key
-  if (!ANTHROPIC_KEY) {
-    const key = prompt(
-      'Enter your Anthropic API key to use the demo\n' +
-      '(Get it from console.anthropic.com/api-keys)\n\n' +
-      'Your key stays in your browser only — never sent to our servers.'
-    );
-    if (!key || !key.startsWith('sk-ant-')) {
-      addMsg(service, 'Valid API key required to use the demo. Get yours at console.anthropic.com', 'bot');
-      return;
-    }
-    ANTHROPIC_KEY = key.trim();
-    sessionStorage.setItem('nahu_demo_key', ANTHROPIC_KEY);
+  const key = ANTHROPIC_KEY || document.getElementById('keyInput').value.trim();
+  if (!key || !key.startsWith('sk-ant-')) {
+    addMsg(service, 'Please enter your Anthropic API key in the bar at the top and click Save key.\n\nGet your free key at: console.anthropic.com', 'bot');
+    return;
   }
+
+  const input = document.getElementById('input-' + service);
+  const btn = document.getElementById('btn-' + service);
+  const text = input.value.trim();
+  if (!text) return;
 
   input.value = '';
   btn.disabled = true;
 
-  // Hide suggestions after first message
   const sugg = document.getElementById('sugg-' + service);
   if (sugg) sugg.style.display = 'none';
 
   addMsg(service, text, 'user');
   history[service].push({ role: 'user', content: text });
-
   showTyping(service);
 
   try {
-    // API key is intentionally in client code for demo purposes only
-    // Replace with your actual Anthropic API key
-    // Using XMLHttpRequest to avoid CORS preflight issues
     const reply = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open('POST', 'https://api.anthropic.com/v1/messages');
       xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.setRequestHeader('x-api-key', ANTHROPIC_KEY);
+      xhr.setRequestHeader('x-api-key', key);
       xhr.setRequestHeader('anthropic-version', '2023-06-01');
       xhr.setRequestHeader('anthropic-dangerous-direct-browser-access', 'true');
       xhr.onload = function() {
@@ -606,7 +349,7 @@ async function sendMsg(service) {
           }
         } catch(e) { reject(e); }
       };
-      xhr.onerror = function() { reject(new Error('Network error — check console')); };
+      xhr.onerror = function() { reject(new Error('Network error — check your internet connection')); };
       xhr.send(JSON.stringify({
         model: 'claude-sonnet-4-6',
         max_tokens: 1000,
@@ -621,12 +364,8 @@ async function sendMsg(service) {
 
   } catch(e) {
     removeTyping(service);
-    console.error('Nahu AI API error:', e);
-    // Show real error in chat for debugging
-    addMsg(service,
-      'Debug error: ' + e.message + '\n\nይቅርታ — እባክዎ ደግመው ይሞክሩ። (Sorry, please try again.)',
-      'bot'
-    );
+    console.error('Nahu demo error:', e);
+    addMsg(service, 'Error: ' + e.message + '\n\nIf this says invalid x-api-key — your key may be expired or incorrect. Create a new key at console.anthropic.com', 'bot');
   }
 
   btn.disabled = false;
