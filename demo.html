@@ -239,7 +239,7 @@ const SYSTEM = {
 };
 
 const history = { market:[], translation:[], university:[], bank:[] };
-let ANTHROPIC_KEY = sessionStorage.getItem('nahu_key') || '';
+let ANTHROPIC_KEY = localStorage.getItem('nahu_key') || '';
 
 window.onload = function() {
   if (ANTHROPIC_KEY) {
@@ -263,7 +263,7 @@ function saveKey() {
 
 Get your key from console.anthropic.com'); return; }
   ANTHROPIC_KEY = k;
-  sessionStorage.setItem('nahu_key', k);
+  localStorage.setItem('nahu_key', k);
   updateKeyStatus();
   const btn = document.querySelector('.key-save-btn');
   btn.textContent = '✓ Saved';

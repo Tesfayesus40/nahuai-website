@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LinkedIn Post Generator — Nahu AI</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0D0D14;color:#F0EFF8;min-height:100vh;line-height:1.6}
+:root{--green:#2ECC8E;--dark:#0D0D14;--card:#16161F;--border:rgba(255,255,255,.08);--muted:#8B89A8;--purple:#6C5CE7}
+nav{background:rgba(13,13,20,.95);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.brand{font-size:18px;font-weight:700;color:#fff;text-decoration:none}.brand span{color:var(--green)}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:14px;margin-left:20px}.nav-links a:hover{color:#fff}
+
+/* KEY BAR */
+.key-bar{background:rgba(46,204,142,.06);border-bottom:2px solid rgba(46,204,142,.2);padding:11px 32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.key-label{font-size:13px;font-weight:600;color:var(--green);white-space:nowrap}
+.key-input{flex:1;min-width:200px;max-width:460px;background:rgba(255,255,255,.07);border:1.5px solid rgba(46,204,142,.25);border-radius:8px;padding:8px 13px;color:#fff;font-size:13px;font-family:monospace;outline:none;transition:border-color .2s}
+.key-input:focus{border-color:var(--green)}
+.key-input::placeholder{color:var(--muted)}
+.key-btn{background:var(--green);color:#0D0D14;border:none;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity .2s}
+.key-btn:hover{opacity:.85}
+.key-badge{font-size:12px;font-weight:500;padding:4px 11px;border-radius:20px}
+.key-badge.ok{background:rgba(46,204,142,.15);color:var(--green)}
+.key-badge.err{background:rgba(224,92,92,.15);color:#E05C5C}
+.key-badge.empty{background:rgba(139,137,168,.1);color:var(--muted)}
+
+/* LAYOUT */
+.page{max-width:900px;margin:0 auto;padding:40px 32px 80px}
+.page-header{margin-bottom:32px;text-align:center}
+.page-tag{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+.page-header h1{font-size:clamp(24px,4vw,36px);font-weight:700;letter-spacing:-0.5px;margin-bottom:10px}
+.page-header p{font-size:15px;color:var(--muted);max-width:500px;margin:0 auto}
+
+/* FORM */
+.form-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:24px}
+.form-card h2{font-size:16px;font-weight:600;color:#fff;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.form-input,.form-select,.form-textarea{background:rgba(255,255,255,.05);border:1.5px solid var(--border);border-radius:8px;padding:10px 13px;color:#fff;font-size:14px;font-family:inherit;outline:none;transition:border-color .2s;width:100%}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:rgba(46,204,142,.4)}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--muted)}
+.form-select option{background:#1E1E2E;color:#fff}
+.form-textarea{resize:vertical;min-height:100px;line-height:1.6}
+
+/* TONE PILLS */
+.tone-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.tone-pill{background:rgba(255,255,255,.04);border:1.5px solid var(--border);color:var(--muted);font-size:12px;font-weight:500;padding:6px 14px;border-radius:20px;cursor:pointer;transition:all .2s;font-family:inherit}
+.tone-pill:hover{border-color:rgba(46,204,142,.3);color:var(--green)}
+.tone-pill.selected{background:rgba(46,204,142,.12);border-color:var(--green);color:var(--green)}
+
+/* HASHTAG PILLS */
+.hashtag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.hashtag{background:rgba(108,92,231,.12);border:1px solid rgba(108,92,231,.25);color:#A29BFE;font-size:12px;padding:4px 10px;border-radius:16px;cursor:pointer;transition:all .2s;font-family:inherit}
+.hashtag.selected{background:rgba(108,92,231,.25);border-color:#6C5CE7}
+
+/* GENERATE BTN */
+.generate-btn{width:100%;background:var(--green);color:#0D0D14;border:none;padding:14px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity .2s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px}
+.generate-btn:hover{opacity:.88}
+.generate-btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* OUTPUT */
+.output-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:none}
+.output-card.visible{display:block}
+.output-header{background:rgba(46,204,142,.08);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.output-title{font-size:14px;font-weight:600;color:#fff}
+.output-actions{display:flex;gap:8px}
+.action-btn{background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--muted);font-size:12px;font-weight:500;padding:6px 14px;border-radius:8px;cursor:pointer;font-family:inherit;transition:all .2s}
+.action-btn:hover{background:rgba(46,204,142,.1);color:var(--green);border-color:rgba(46,204,142,.3)}
+.action-btn.copied{background:rgba(46,204,142,.15);color:var(--green);border-color:var(--green)}
+
+/* POST PREVIEW */
+.post-preview{padding:20px}
+.li-mockup{background:#1B1B27;border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:20px;margin-bottom:16px}
+.li-author{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.li-avatar{width:42px;height:42px;background:linear-gradient(135deg,var(--green),var(--purple));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0}
+.li-name{font-size:14px;font-weight:600;color:#fff}
+.li-title{font-size:12px;color:var(--muted)}
+.li-content{font-size:14px;color:#E0DFF0;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+.li-hashtags{margin-top:10px;font-size:13px;color:#7B9FD4;line-height:1.8}
+
+/* CHAR COUNT */
+.char-count{font-size:12px;color:var(--muted);text-align:right;margin-top:8px}
+.char-count.warn{color:#EF9F27}
+.char-count.over{color:#E05C5C}
+
+/* EDITABLE */
+.editable{background:rgba(255,255,255,.03);border:1.5px solid var(--border);border-radius:8px;padding:14px;font-size:14px;color:#F0EFF8;line-height:1.7;min-height:160px;outline:none;transition:border-color .2s;white-space:pre-wrap;word-break:break-word}
+.editable:focus{border-color:rgba(46,204,142,.4)}
+
+/* DOTS */
+.typing-dots{display:none;align-items:center;gap:6px;padding:20px;color:var(--muted);font-size:13px}
+.typing-dots.show{display:flex}
+.dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:tdot .8s infinite}
+.dot:nth-child(2){animation-delay:.15s}
+.dot:nth-child(3){animation-delay:.3s}
+@keyframes tdot{0%,80%,100%{transform:scale(.7);opacity:.4}40%{transform:scale(1.1);opacity:1}}
+
+/* VERSIONS */
+.versions-row{display:flex;gap:8px;padding:12px 20px;border-top:1px solid var(--border);flex-wrap:wrap}
+.ver-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted);font-size:12px;padding:6px 12px;border-radius:6px;cursor:pointer;font-family:inherit;transition:all .2s}
+.ver-btn:hover{border-color:var(--green);color:var(--green)}
+
+@media(max-width:600px){
+  .form-grid{grid-template-columns:1fr}
+  .page{padding:24px 16px 60px}
+  nav{padding:12px 16px}
+  .nav-links{display:none}
+  .key-bar{padding:10px 16px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://nahuai.app" class="brand">ና <span>Nahu AI</span></a>
+  <div class="nav-links">
+    <a href="https://nahuai.app">Home</a>
+    <a href="demo.html">Demo</a>
+    <a href="translate.html">Translation</a>
+    <a href="https://nahuai.app/#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="key-bar">
+  <span class="key-label">Anthropic API key:</span>
+  <input class="key-input" id="keyInput" type="password" placeholder="sk-ant-api03-..." oninput="updateBadge()"/>
+  <button class="key-btn" onclick="saveKey()">Save key</button>
+  <span class="key-badge empty" id="keyBadge">No key entered</span>
+</div>
+
+<div class="page">
+  <div class="page-header">
+    <p class="page-tag">AI-powered content tool</p>
+    <h1>LinkedIn Post Generator</h1>
+    <p>Write compelling LinkedIn posts about Nahu AI, Ethiopian tech, and your work — in seconds.</p>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-card">
+    <h2>✍️ Tell Claude what to write about</h2>
+    <div class="form-grid">
+
+      <div class="form-group full">
+        <label class="form-label">Topic or key message</label>
+        <textarea class="form-textarea" id="topic" placeholder="e.g. We just launched a live Amharic AI demo at nahuai.app/demo — 4 different bots working in real time in Amharic and English. Built while completing my MSc at USask."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Post goal</label>
+        <select class="form-select" id="goal">
+          <option value="announce">Announce a launch or milestone</option>
+          <option value="educate">Educate about Amharic AI</option>
+          <option value="attract">Attract Ethiopian business clients</option>
+          <option value="story">Share a personal founder story</option>
+          <option value="insight">Share a market insight</option>
+          <option value="offer">Promote a service offer</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Post length</label>
+        <select class="form-select" id="length">
+          <option value="short">Short — 3 to 5 lines (high engagement)</option>
+          <option value="medium" selected>Medium — 8 to 12 lines (most common)</option>
+          <option value="long">Long — 15 to 20 lines (thought leadership)</option>
+        </select>
+      </div>
+
+      <div class="form-group full">
+        <label class="form-label">Tone</label>
+        <div class="tone-row">
+          <button class="tone-pill selected" onclick="selectTone(this,'professional')">Professional</button>
+          <button class="tone-pill" onclick="selectTone(this,'personal')">Personal & warm</button>
+          <button class="tone-pill" onclick="selectTone(this,'bold')">Bold & direct</button>
+          <button class="tone-pill" onclick="selectTone(this,'storytelling')">Storytelling</button>
+          <button class="tone-pill" onclick="selectTone(this,'inspiring')">Inspiring</button>
+        </div>
+      </div>
+
+      <div class="form-group full">
+        <label class="form-label">Include hashtags (click to select)</label>
+        <div class="hashtag-row" id="hashtagRow">
+          <button class="hashtag selected" onclick="toggleHashtag(this,'#EthiopianAI')">#EthiopianAI</button>
+          <button class="hashtag selected" onclick="toggleHashtag(this,'#AmharicAI')">#AmharicAI</button>
+          <button class="hashtag selected" onclick="toggleHashtag(this,'#NahuAI')">#NahuAI</button>
+          <button class="hashtag" onclick="toggleHashtag(this,'#EthiopianTech')">#EthiopianTech</button>
+          <button class="hashtag" onclick="toggleHashtag(this,'#AfricanAI')">#AfricanAI</button>
+          <button class="hashtag" onclick="toggleHashtag(this,'#Ethiopia')">#Ethiopia</button>
+          <button class="hashtag" onclick="toggleHashtag(this,'#AIStartup')">#AIStartup</button>
+          <button class="hashtag" onclick="toggleHashtag(this,'#EthiopianDiaspora')">#EthiopianDiaspora</button>
+          <button class="hashtag" onclick="toggleHashtag(this,'#Amharic')">#Amharic</button>
+          <button class="hashtag" onclick="toggleHashtag(this,'#StartupLife')">#StartupLife</button>
+          <button class="hashtag" onclick="toggleHashtag(this,'#MScLife')">#MScLife</button>
+          <button class="hashtag" onclick="toggleHashtag(this,'#Canada')">#Canada</button>
+        </div>
+      </div>
+
+      <div class="form-group full">
+        <label class="form-label">Your name and title (for signature)</label>
+        <input class="form-input" id="signature" value="Tesfayesus Yimenu Yirdaw — Founder, Nahu AI | MSc Candidate, USask" placeholder="Your name and title"/>
+      </div>
+
+    </div>
+
+    <button class="generate-btn" id="genBtn" onclick="generatePost()">
+      ✨ Generate LinkedIn post
+    </button>
+  </div>
+
+  <!-- TYPING -->
+  <div class="typing-dots" id="typingDots">
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <span>Claude is writing your post...</span>
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="output-card" id="outputCard">
+    <div class="output-header">
+      <span class="output-title">Your LinkedIn post — ready to copy</span>
+      <div class="output-actions">
+        <button class="action-btn" id="copyBtn" onclick="copyPost()">Copy post</button>
+        <button class="action-btn" onclick="regenerate()">Regenerate</button>
+        <button class="action-btn" onclick="openLinkedIn()">Open LinkedIn →</button>
+      </div>
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="post-preview">
+      <div class="li-mockup">
+        <div class="li-author">
+          <div class="li-avatar">TY</div>
+          <div>
+            <div class="li-name">Tesfayesus Yimenu Yirdaw</div>
+            <div class="li-title">Founder, Nahu AI | MSc Candidate, USask</div>
+          </div>
+        </div>
+        <div class="li-content" id="previewContent"></div>
+        <div class="li-hashtags" id="previewHashtags"></div>
+      </div>
+
+      <!-- EDITABLE -->
+      <label class="form-label" style="margin-bottom:8px;display:block">Edit your post</label>
+      <div class="editable" id="editablePost" contenteditable="true" oninput="syncPreview()"></div>
+      <div class="char-count" id="charCount">0 characters</div>
+    </div>
+
+    <div class="versions-row">
+      <span style="font-size:12px;color:var(--muted);align-self:center">Generate variations:</span>
+      <button class="ver-btn" onclick="generateVariation('shorter')">Make shorter</button>
+      <button class="ver-btn" onclick="generateVariation('hook')">Stronger opening hook</button>
+      <button class="ver-btn" onclick="generateVariation('story')">More personal story</button>
+      <button class="ver-btn" onclick="generateVariation('cta')">Stronger call to action</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let ANTHROPIC_KEY = localStorage.getItem('nahu_linkedin_key') || '';
+let selectedTone = 'professional';
+let selectedHashtags = ['#EthiopianAI','#AmharicAI','#NahuAI'];
+let lastPost = '';
+
+window.onload = function() {
+  if (ANTHROPIC_KEY) {
+    document.getElementById('keyInput').value = ANTHROPIC_KEY;
+    updateBadge();
+  }
+};
+
+function updateBadge() {
+  const k = document.getElementById('keyInput').value.trim();
+  const b = document.getElementById('keyBadge');
+  if (!k) { b.className='key-badge empty'; b.textContent='No key entered'; }
+  else if (k.startsWith('sk-ant-')) { b.className='key-badge ok'; b.textContent='✓ Key ready — click Save key'; }
+  else { b.className='key-badge err'; b.textContent='✗ Must start with sk-ant- (got: ' + k.substring(0,8) + ')'; }
+}
+
+function saveKey() {
+  const k = document.getElementById('keyInput').value.trim();
+  if (!k) { alert('Key field is empty. Please paste your Anthropic API key.'); return; }
+  if (!k.startsWith('sk-ant-')) { 
+    alert('Key should start with sk-ant-\n\nYour key starts with: ' + k.substring(0,10)); 
+    return; 
+  }
+  ANTHROPIC_KEY = k;
+  localStorage.setItem('nahu_linkedin_key', k);
+  const badge = document.getElementById('keyBadge');
+  badge.className = 'key-badge ok';
+  badge.textContent = '✓ Key ready — ' + k.length + ' chars';
+  const btn = document.querySelector('.key-btn');
+  btn.textContent = '✓ Saved'; btn.style.background = '#1D9E75';
+  setTimeout(() => { btn.textContent = 'Save key'; btn.style.background = ''; }, 2000);
+}
+
+function selectTone(btn, tone) {
+  document.querySelectorAll('.tone-pill').forEach(p => p.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedTone = tone;
+}
+
+function toggleHashtag(btn, tag) {
+  btn.classList.toggle('selected');
+  if (btn.classList.contains('selected')) {
+    if (!selectedHashtags.includes(tag)) selectedHashtags.push(tag);
+  } else {
+    selectedHashtags = selectedHashtags.filter(h => h !== tag);
+  }
+}
+
+function buildPrompt(extraInstruction) {
+  const topic = document.getElementById('topic').value.trim();
+  const goal = document.getElementById('goal').value;
+  const length = document.getElementById('length').value;
+  const sig = document.getElementById('signature').value.trim();
+  const hashtags = selectedHashtags.join(' ');
+
+  const lengthGuide = {
+    short: '3 to 5 lines total — punchy and direct',
+    medium: '8 to 12 lines — engaging with substance',
+    long: '15 to 20 lines — detailed thought leadership piece'
+  }[length];
+
+  const toneGuide = {
+    professional: 'Professional and credible — authoritative but approachable',
+    personal: 'Personal and warm — authentic founder voice, human and relatable',
+    bold: 'Bold and direct — confident, no hedging, strong statements',
+    storytelling: 'Story format — open with a scene or moment, build to insight',
+    inspiring: 'Inspiring and motivational — uplift the Ethiopian tech community'
+  }[selectedTone];
+
+  const goalGuide = {
+    announce: 'Announce this news in a compelling way that generates engagement',
+    educate: 'Educate the audience about why this matters for Ethiopian businesses',
+    attract: 'Attract Ethiopian banks, universities, and exporters as potential clients',
+    story: 'Share this as a personal founder journey story',
+    insight: 'Present this as a market insight that positions Nahu AI as an expert',
+    offer: 'Promote this service in a way that drives people to reach out'
+  }[goal];
+
+  return `You are a LinkedIn content expert specializing in African tech startups and Ethiopian entrepreneurship.
+
+Write a LinkedIn post for Tesfayesus Yimenu Yirdaw, founder of Nahu AI — Ethiopia's first Amharic AI agency, based in Saskatoon, Canada while completing an MSc at the University of Saskatchewan.
+
+TOPIC: ${topic}
+
+GOAL: ${goalGuide}
+
+TONE: ${toneGuide}
+
+LENGTH: ${lengthGuide}
+
+${extraInstruction ? 'SPECIAL INSTRUCTION: ' + extraInstruction : ''}
+
+RULES:
+- Open with a strong hook — first line must stop the scroll
+- No generic opener like "I am excited to share" or "Thrilled to announce"
+- Write in first person as Tesfayesus
+- Reference Ethiopian context where relevant — Amharic language, Ethiopian businesses, diaspora
+- End with a clear call to action or question that invites comments
+- Do NOT include hashtags in the post body — add them at the very end on their own line
+- Do not use excessive emoji — max 2-3 total if any
+- Do not include the author signature — just the post text
+
+OUTPUT FORMAT:
+[Post text only]
+
+---HASHTAGS---
+${hashtags}`;
+}
+
+async function callClaude(prompt) {
+  const key = ANTHROPIC_KEY || document.getElementById('keyInput').value.trim();
+  if (!key || !key.startsWith('sk-ant-')) {
+    throw new Error('Please enter your Anthropic API key in the bar at the top and click Save key.');
+  }
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://api.anthropic.com/v1/messages');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('x-api-key', key);
+    xhr.setRequestHeader('anthropic-version', '2023-06-01');
+    xhr.setRequestHeader('anthropic-dangerous-direct-browser-access', 'true');
+    xhr.onload = function() {
+      try {
+        const data = JSON.parse(xhr.responseText);
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(data.content?.[0]?.text || '');
+        } else {
+          reject(new Error('API ' + xhr.status + ': ' + (data.error?.message || xhr.statusText)));
+        }
+      } catch(e) { reject(e); }
+    };
+    xhr.onerror = function() { reject(new Error('Network error — check your internet connection')); };
+    xhr.send(JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 800,
+      messages: [{ role: 'user', content: prompt }]
+    }));
+  });
+}
+
+async function generatePost() {
+  const topic = document.getElementById('topic').value.trim();
+  if (!topic) { alert('Please enter a topic or message first.'); return; }
+
+  const btn = document.getElementById('genBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Generating...';
+  document.getElementById('typingDots').classList.add('show');
+  document.getElementById('outputCard').classList.remove('visible');
+
+  try {
+    const result = await callClaude(buildPrompt(''));
+    showPost(result);
+  } catch(e) {
+    alert('Error: ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✨ Generate LinkedIn post';
+    document.getElementById('typingDots').classList.remove('show');
+  }
+}
+
+async function generateVariation(type) {
+  const instructions = {
+    shorter: 'Make this post significantly shorter — cut to the most essential 3-5 lines while keeping the key message',
+    hook: 'Rewrite with a much stronger, more provocative opening hook that stops the scroll',
+    story: 'Rewrite as a personal story — open with a specific moment or scene, make it deeply personal',
+    cta: 'Keep the post but rewrite the ending with a much stronger, specific call to action'
+  };
+  const topic = lastPost || document.getElementById('topic').value.trim();
+  const btn = document.querySelector('.ver-btn[onclick*="' + type + '"]');
+  if (btn) { btn.textContent = '⏳...'; btn.disabled = true; }
+  document.getElementById('typingDots').classList.add('show');
+  try {
+    const result = await callClaude(buildPrompt(instructions[type] + '. Base it on this previous version: ' + lastPost));
+    showPost(result);
+  } catch(e) {
+    alert('Error: ' + e.message);
+  } finally {
+    document.getElementById('typingDots').classList.remove('show');
+    if (btn) { btn.textContent = btn.textContent.replace('⏳...', Object.keys(instructions).find(k => k === type)); btn.disabled = false; }
+  }
+}
+
+function showPost(rawText) {
+  // Split body from hashtags
+  const parts = rawText.split('---HASHTAGS---');
+  const body = parts[0].trim();
+  const hashtags = parts[1] ? parts[1].trim() : selectedHashtags.join(' ');
+  lastPost = body;
+
+  document.getElementById('previewContent').textContent = body;
+  document.getElementById('previewHashtags').textContent = hashtags;
+  document.getElementById('editablePost').textContent = body + '\n\n' + hashtags;
+  updateCharCount();
+  document.getElementById('outputCard').classList.add('visible');
+  document.getElementById('outputCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function syncPreview() {
+  const text = document.getElementById('editablePost').textContent;
+  const parts = text.split('\n\n#');
+  document.getElementById('previewContent').textContent = parts[0];
+  if (parts[1]) document.getElementById('previewHashtags').textContent = '#' + parts.slice(1).join('\n\n#');
+  updateCharCount();
+}
+
+function updateCharCount() {
+  const len = document.getElementById('editablePost').textContent.length;
+  const el = document.getElementById('charCount');
+  el.textContent = len.toLocaleString() + ' characters';
+  el.className = len > 3000 ? 'char-count over' : len > 2500 ? 'char-count warn' : 'char-count';
+}
+
+function copyPost() {
+  const text = document.getElementById('editablePost').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy post'; btn.classList.remove('copied'); }, 2500);
+  });
+}
+
+function regenerate() {
+  generatePost();
+}
+
+function openLinkedIn() {
+  window.open('https://www.linkedin.com/feed/', '_blank');
+}
+</script>
+</body>
+</html>
