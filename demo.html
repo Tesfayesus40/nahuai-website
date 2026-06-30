@@ -286,7 +286,6 @@ async function sendMsg(service) {
       const xhr = new XMLHttpRequest();
       xhr.open('POST', 'https://api.anthropic.com/v1/messages');
       xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.setRequestHeader('x-api-key', key);
       xhr.setRequestHeader('anthropic-version', '2023-06-01');
       xhr.onload = function() {
         try {
@@ -315,7 +314,7 @@ async function sendMsg(service) {
   } catch(e) {
     removeTyping(service);
     console.error('Nahu demo error:', e);
-    addMsg(service, 'Error: ' + e.message + '\n\nIf this says invalid x-api-key — your key may be expired or incorrect. Create a new key at console.anthropic.com', 'bot');
+    addMsg(service, 'Error: ' + e.message + '\n\nPlease try again in a moment. If this persists, the service may be temporarily unavailable.', 'bot');
   }
 
   btn.disabled = false;
