@@ -218,7 +218,8 @@ const SYSTEM = {
 };
 
 const history = { market:[], translation:[], university:[], bank:[] };
-const ANTHROPIC_KEY = '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';
+// API key removed — now handled securely by backend proxy
+const PROXY_URL = 'https://nahu-ai-proxy-production.up.railway.app/api/chat';
 
 
 
@@ -263,7 +264,7 @@ function removeTyping(service) {
 }
 
 async function sendMsg(service) {
-  const key = ANTHROPIC_KEY;
+  // Proxy handles authentication — no key check needed here
 
   const input = document.getElementById('input-' + service);
   const btn = document.getElementById('btn-' + service);
@@ -287,7 +288,6 @@ async function sendMsg(service) {
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.setRequestHeader('x-api-key', key);
       xhr.setRequestHeader('anthropic-version', '2023-06-01');
-      xhr.setRequestHeader('anthropic-dangerous-direct-browser-access', 'true');
       xhr.onload = function() {
         try {
           const data = JSON.parse(xhr.responseText);
