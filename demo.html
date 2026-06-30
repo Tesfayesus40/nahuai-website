@@ -284,9 +284,8 @@ async function sendMsg(service) {
   try {
     const reply = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open('POST', 'https://api.anthropic.com/v1/messages');
+      xhr.open('POST', PROXY_URL);
       xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.setRequestHeader('anthropic-version', '2023-06-01');
       xhr.onload = function() {
         try {
           const data = JSON.parse(xhr.responseText);
