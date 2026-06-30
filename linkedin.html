@@ -127,7 +127,7 @@ nav{background:rgba(13,13,20,.95);border-bottom:1px solid var(--border);padding:
 
       <div class="form-group full">
         <label class="form-label">Topic or key message</label>
-        <textarea class="form-textarea" id="topic" placeholder="e.g. We just launched a live Amharic AI demo at nahuai.app/demo — 4 different bots working in real time in Amharic and English. Built while completing my MSc at USask."></textarea>
+        <textarea class="form-textarea" id="topic" placeholder="e.g. We just launched a live Amharic AI demo at nahuai.app/demo — 4 different bots working in real time in Amharic and English. Built while studying in Canada."></textarea>
       </div>
 
       <div class="form-group">
@@ -175,14 +175,14 @@ nav{background:rgba(13,13,20,.95);border-bottom:1px solid var(--border);padding:
           <button class="hashtag" onclick="toggleHashtag(this,'#EthiopianDiaspora')">#EthiopianDiaspora</button>
           <button class="hashtag" onclick="toggleHashtag(this,'#Amharic')">#Amharic</button>
           <button class="hashtag" onclick="toggleHashtag(this,'#StartupLife')">#StartupLife</button>
-          <button class="hashtag" onclick="toggleHashtag(this,'#MScLife')">#MScLife</button>
+          <button class="hashtag" onclick="toggleHashtag(this,'#StudyInCanada')">#StudyInCanada</button>
           <button class="hashtag" onclick="toggleHashtag(this,'#Canada')">#Canada</button>
         </div>
       </div>
 
       <div class="form-group full">
         <label class="form-label">Your name and title (for signature)</label>
-        <input class="form-input" id="signature" value="Tesfayesus Yimenu Yirdaw — Founder, Nahu AI | MSc Candidate, USask" placeholder="Your name and title"/>
+        <input class="form-input" id="signature" value="Tesfayesus Yimenu Yirdaw — Founder, Nahu AI | Studying in Canada" placeholder="Your name and title"/>
       </div>
 
     </div>
@@ -216,7 +216,7 @@ nav{background:rgba(13,13,20,.95);border-bottom:1px solid var(--border);padding:
           <div class="li-avatar">TY</div>
           <div>
             <div class="li-name">Tesfayesus Yimenu Yirdaw</div>
-            <div class="li-title">Founder, Nahu AI | MSc Candidate, USask</div>
+            <div class="li-title">Founder, Nahu AI | Studying in Canada</div>
           </div>
         </div>
         <div class="li-content" id="previewContent"></div>
@@ -293,7 +293,7 @@ function buildPrompt(extraInstruction) {
 
   return `You are a LinkedIn content expert specializing in African tech startups and Ethiopian entrepreneurship.
 
-Write a LinkedIn post for Tesfayesus Yimenu Yirdaw, founder of Nahu AI — Ethiopia's first Amharic AI agency, based in Saskatoon, Canada while completing an MSc at the University of Saskatchewan.
+Write a LinkedIn post for Tesfayesus Yimenu Yirdaw, founder of Nahu AI — Ethiopia's first Amharic AI agency, based in Saskatoon, Canada while studying in Canada.
 
 TOPIC: ${topic}
 
