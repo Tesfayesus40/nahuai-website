@@ -15,19 +15,7 @@ nav{background:rgba(13,13,20,.95);backdrop-filter:blur(12px);border-bottom:1px s
 .nav-links a{color:#8B89A8;text-decoration:none;font-size:14px;margin-left:20px}
 .nav-links a:hover{color:#fff}
 
-/* KEY BAR */
-.key-bar{background:rgba(46,204,142,.06);border-bottom:2px solid rgba(46,204,142,.2);padding:12px 32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.key-bar-label{font-size:13px;font-weight:600;color:var(--green);white-space:nowrap}
-.key-bar-input{flex:1;min-width:220px;max-width:500px;background:rgba(255,255,255,.07);border:1.5px solid rgba(46,204,142,.25);border-radius:8px;padding:9px 14px;color:#fff;font-size:13px;font-family:monospace;outline:none;transition:border-color .2s}
-.key-bar-input:focus{border-color:var(--green)}
-.key-bar-input::placeholder{color:var(--muted)}
-.key-save-btn{background:var(--green);color:#0D0D14;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;transition:opacity .2s}
-.key-save-btn:hover{opacity:.85}
-.key-badge{font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;white-space:nowrap}
-.key-badge.ok{background:rgba(46,204,142,.15);color:var(--green)}
-.key-badge.err{background:rgba(224,92,92,.15);color:#E05C5C}
-.key-badge.empty{background:rgba(139,137,168,.1);color:var(--muted)}
-.key-hint{font-size:11px;color:var(--muted);width:100%}
+
 
 /* HERO */
 .hero{padding:52px 32px 36px;text-align:center;max-width:700px;margin:0 auto}
@@ -118,16 +106,7 @@ footer a{color:var(--green);text-decoration:none}
   </div>
 </nav>
 
-<!-- API KEY BAR -->
-<div class="key-bar" id="keyBar">
-  <span class="key-bar-label">Anthropic API key:</span>
-  <input class="key-bar-input" id="keyInput" type="text"
-    placeholder="sk-ant-api03-xxxxxxxxxxxxxxxxxx"
-    oninput="updateKeyStatus()" onpaste="setTimeout(updateKeyStatus,200)" onkeydown="if(event.key==='Enter')saveKey()" autocomplete="off" spellcheck="false"/>
-  <button class="key-save-btn" onclick="saveKey()">Save key</button>
-  <span class="key-badge empty" id="keyBadge">No key entered</span>
-  <span class="key-hint">Your key stays in your browser only — never sent to our servers. Get yours at console.anthropic.com</span>
-</div>
+
 
 <div class="hero">
   <p class="hero-tag">Live interactive demo</p>
@@ -239,59 +218,16 @@ const SYSTEM = {
 };
 
 const history = { market:[], translation:[], university:[], bank:[] };
-let ANTHROPIC_KEY = localStorage.getItem('nahu_key') || '';
+const ANTHROPIC_KEY = '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';
 
-window.onload = function() {
-  const saved = localStorage.getItem('nahu_key') || '';
-  if (saved && saved.startsWith('sk-ant-') && saved.length > 40) {
-    ANTHROPIC_KEY = saved;
-    const el = document.getElementById('keyInput');
-    if (el) el.value = saved;
-    const b = document.querySelector('.key-badge') || document.getElementById('keyBadge');
-    if (b) { b.className='key-badge ok'; b.textContent='✓ Key loaded — ' + saved.length + ' chars'; }
-  }
-}
-function onload_skip() {
+
   if (ANTHROPIC_KEY) {
     document.getElementById('keyInput').value = ANTHROPIC_KEY;
     updateKeyStatus();
   }
 };
 
-function updateKeyStatus() {
-  const k = document.getElementById('keyInput').value.trim();
-  const b = document.querySelector('.key-badge') || document.getElementById('keyBadge');
-  if (!b) return;
-  if (!k) { b.className='key-badge empty'; b.textContent='No key entered'; }
-  else if (k.startsWith('sk-ant-') && k.length > 40) { b.className='key-badge ok'; b.textContent='✓ Ready — press Enter or click Save'; }
-  else { b.className='key-badge err'; b.textContent=k.length + ' chars — ' + k.substring(0,10); }
-}
-function updateKeyStatus_skip() {
-  const k = document.getElementById('keyInput').value.trim();
-  const badge = document.getElementById('keyBadge');
-  if (!k) { badge.className='key-badge empty'; badge.textContent='No key entered'; }
-  else if (k.startsWith('sk-ant-')) { badge.className='key-badge ok'; badge.textContent='✓ Key looks valid'; }
-  else { badge.className='key-badge err'; badge.textContent='✗ Should start with sk-ant-'; }
-}
 
-function saveKey() {
-  const el = document.getElementById('keyInput');
-  const k = el.value.trim();
-  const badge = document.querySelector('.key-badge') || document.getElementById('keyBadge');
-  const btn = document.querySelector('.key-save-btn') || document.querySelector('.key-btn');
-  if (!k || k.length < 30) {
-    if(badge){badge.className='key-badge err';badge.textContent='Paste your key (' + k.length + ' chars found)';}
-    el.focus(); return;
-  }
-  if (!k.startsWith('sk-ant-')) {
-    if(badge){badge.className='key-badge err';badge.textContent='Wrong: ' + k.substring(0,12) + '...';}
-    return;
-  }
-  ANTHROPIC_KEY = k;
-  try { localStorage.setItem('nahu_key', k); } catch(e) {}
-  if(badge){badge.className='key-badge ok';badge.textContent='✓ Saved — ' + k.length + ' chars';}
-  if(btn){btn.textContent='✓ Saved!';btn.style.background='#168a62';setTimeout(()=>{btn.textContent='Save key';btn.style.background='';},2500);}
-}
 function saveKey_original() {
   const k = document.getElementById('keyInput').value.trim();
   if (!k) { alert('Please enter your API key first.'); return; }
@@ -345,11 +281,7 @@ function removeTyping(service) {
 }
 
 async function sendMsg(service) {
-  const key = ANTHROPIC_KEY || document.getElementById('keyInput').value.trim();
-  if (!key || !key.startsWith('sk-ant-')) {
-    addMsg(service, 'Please enter your Anthropic API key in the bar at the top and click Save key.\n\nGet your free key at: console.anthropic.com', 'bot');
-    return;
-  }
+  const key = ANTHROPIC_KEY;
 
   const input = document.getElementById('input-' + service);
   const btn = document.getElementById('btn-' + service);
